@@ -8,9 +8,9 @@
   <title>About</title>
   <meta property="og:title" content="About" />
   <meta name="twitter:title" content="About" />
-  <meta name="description" content="return *(*string)(unsafe.">
-  <meta property="og:description" content="return *(*string)(unsafe.">
-  <meta name="twitter:description" content="return *(*string)(unsafe.">
+  <meta name="description" content="return *(*string)(unsafe.Pointer(&amp;b))  ">
+  <meta property="og:description" content="return *(*string)(unsafe.Pointer(&amp;b))  ">
+  <meta name="twitter:description" content="return *(*string)(unsafe.Pointer(&amp;b))  ">
   <meta name="author" content="semieye"/>
   <link href='https://semieye.github.io/img/favicon.ico' rel='icon' type='image/x-icon'/>
   <meta property="og:image" content="https://semieye.github.io/img/avatar-icon.png" />
@@ -173,7 +173,9 @@
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
-        <div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go">    <span class="k">return</span> <span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="kt">string</span><span class="p">)(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">b</span><span class="p">))</span></code></pre></div>
+        <pre><code class="language-go">    return *(*string)(unsafe.Pointer(&amp;b))
+</code></pre>
+
       </article>
 
       
@@ -246,6 +248,8 @@
 
 
 
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
 
 
   </body>
