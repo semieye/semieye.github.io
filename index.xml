@@ -19,7 +19,7 @@
       <pubDate>Thu, 22 Mar 2018 21:41:23 +0800</pubDate>
       <author>semieye@qq.com (semieye)</author>
       <guid>https://semieye.github.io/about/</guid>
-      <description> return *(*string)(unsafe.Pointer(&amp;b))  </description>
+      <description>199 return *(*string)(unsafe.Pointer(&amp;amp;b))   </description>
     </item>
     
   </channel>
