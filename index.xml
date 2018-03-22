@@ -8,9 +8,19 @@
     <language>zh-CN</language>
     <managingEditor>semieye@qq.com (semieye)</managingEditor>
     <webMaster>semieye@qq.com (semieye)</webMaster>
+    <lastBuildDate>Thu, 22 Mar 2018 21:41:23 +0800</lastBuildDate>
     
 	<atom:link href="https://semieye.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>About</title>
+      <link>https://semieye.github.io/about/</link>
+      <pubDate>Thu, 22 Mar 2018 21:41:23 +0800</pubDate>
+      <author>semieye@qq.com (semieye)</author>
+      <guid>https://semieye.github.io/about/</guid>
+      <description>return *(*string)(unsafe.</description>
+    </item>
     
   </channel>
 </rss>
