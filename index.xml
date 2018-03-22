@@ -19,7 +19,7 @@
       <pubDate>Thu, 22 Mar 2018 21:41:23 +0800</pubDate>
       <author>semieye@qq.com (semieye)</author>
       <guid>https://semieye.github.io/about/</guid>
-      <description>199 return *(*string)(unsafe.Pointer(&amp;amp;b))   </description>
+      <description>// Copyright © 2018 tzx All rights reserved.  package unsafe import ( &amp;#34;reflect&amp;#34; &amp;#34;unsafe&amp;#34; ) // String change byte slice to string func String(b []byte) string { return *(*string)(unsafe.Pointer(&amp;amp;b)) } </description>
     </item>
     
   </channel>
