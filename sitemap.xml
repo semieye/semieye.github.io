@@ -8,7 +8,36 @@
   </url>
   
   <url>
+    <loc>https://semieye.github.io/post/00000000/</loc>
+    <lastmod>2018-03-22T19:58:54+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://semieye.github.io/categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://semieye.github.io/tags/develop/</loc>
+    <lastmod>2018-03-22T19:58:54+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://semieye.github.io/categories/development/</loc>
+    <lastmod>2018-03-22T19:58:54+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://semieye.github.io/tags/go/</loc>
+    <lastmod>2018-03-22T19:58:54+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://semieye.github.io/categories/golang/</loc>
+    <lastmod>2018-03-22T19:58:54+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -19,7 +48,14 @@
   </url>
   
   <url>
+    <loc>https://semieye.github.io/post/</loc>
+    <lastmod>2018-03-22T19:58:54+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://semieye.github.io/tags/</loc>
+    <lastmod>2018-03-22T19:58:54+08:00</lastmod>
     <priority>0</priority>
   </url>
   

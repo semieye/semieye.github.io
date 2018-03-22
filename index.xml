@@ -22,5 +22,14 @@
       <description>// Copyright © 2018 tzx All rights reserved.  package unsafe import ( &amp;#34;reflect&amp;#34; &amp;#34;unsafe&amp;#34; ) // String change byte slice to string func String(b []byte) string { return *(*string)(unsafe.Pointer(&amp;amp;b)) } </description>
     </item>
     
+    <item>
+      <title>你好，Hugo</title>
+      <link>https://semieye.github.io/post/00000000/</link>
+      <pubDate>Thu, 22 Mar 2018 19:58:54 +0800</pubDate>
+      <author>semieye@qq.com (semieye)</author>
+      <guid>https://semieye.github.io/post/00000000/</guid>
+      <description>这是使用Hugo创建的站点中的第一篇文章。</description>
+    </item>
+    
   </channel>
 </rss>
