@@ -5,23 +5,23 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <title>Test markdown</title>
-  <meta property="og:title" content="Test markdown" />
-  <meta name="twitter:title" content="Test markdown" />
-  <meta name="description" content="Each post also has a subtitle">
-  <meta property="og:description" content="Each post also has a subtitle">
-  <meta name="twitter:description" content="Each post also has a subtitle">
+  <title>Gin 源码学习（Gin Limit Middleware）</title>
+  <meta property="og:title" content="Gin 源码学习（Gin Limit Middleware）" />
+  <meta name="twitter:title" content="Gin 源码学习（Gin Limit Middleware）" />
+  <meta name="description" content="记录一些值得学习的Go开源项目">
+  <meta property="og:description" content="记录一些值得学习的Go开源项目">
+  <meta name="twitter:description" content="记录一些值得学习的Go开源项目">
   <meta name="author" content="semieye"/>
   <link href='https://semieye.github.io/img/favicon.ico' rel='icon' type='image/x-icon'/>
   <meta property="og:image" content="https://semieye.github.io/img/avatar-icon.png" />
   <meta name="twitter:image" content="https://semieye.github.io/img/avatar-icon.png" />
   <meta name="twitter:card" content="summary" />
-  <meta property="og:url" content="https://semieye.github.io/post/examples/2015-02-20-test-markdown/" />
+  <meta property="og:url" content="https://semieye.github.io/post/2018/03/gin-limit/" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Nothing lasts forever" />
 
   <meta name="generator" content="Hugo 0.37.1" />
-  <link rel="canonical" href="https://semieye.github.io/post/examples/2015-02-20-test-markdown/" />
+  <link rel="canonical" href="https://semieye.github.io/post/2018/03/gin-limit/" />
   <link rel="alternate" href="https://semieye.github.io/index.xml" type="application/rss+xml" title="Nothing lasts forever">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
@@ -163,21 +163,21 @@
         <div class="row">
           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
             <div class="post-heading">
-              <h2>Test markdown</h2>
+              <h2>Gin 源码学习（Gin Limit Middleware）</h2>
                 
                   
-                    <h2 class="post-subheading">Each post also has a subtitle</h2>
+                    <h2 class="post-subheading">Gin Limit Middleware</h2>
                   
                 
                 
                   <span class="post-meta">
   
   
-  <i class="fa fa-calendar-o"></i>&nbsp;Posted on February 20, 2015
+  <i class="fa fa-calendar-o"></i>&nbsp;Posted on March 23, 2018
   
   
   &nbsp;|&nbsp;
-  <i class="fa fa-clock-o"></i> 1 minutes (95 words)
+  <i class="fa fa-clock-o"></i> 1 minutes (366 words)
   
   
 </span>
@@ -197,75 +197,40 @@
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
-        
+        <p><a href="https://github.com/aviddiviner/gin-limit">https://github.com/aviddiviner/gin-limit</a> 请求限制</p>
 
-<p>You can write regular <a href="http://markdowntutorial.com/">markdown</a> here and Jekyll will automatically convert it to a nice webpage.  I strongly encourage you to <a href="http://markdowntutorial.com/">take 5 minutes to learn how to write in markdown</a> - it&rsquo;ll teach you how to transform regular text into bold/italics/headings/tables/etc.</p>
+<p>代码超级简单呐，利用空结构体和缓冲为n的chan做连接限制，请看：</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nx">MaxAllowed</span><span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="nx">gin</span><span class="p">.</span><span class="nx">HandlerFunc</span> <span class="p">{</span>
+	<span class="nx">sem</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kd">struct</span><span class="p">{},</span> <span class="nx">n</span><span class="p">)</span>
+	<span class="nx">acquire</span> <span class="o">:=</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span> <span class="nx">sem</span> <span class="o">&lt;-</span> <span class="kd">struct</span><span class="p">{}{}</span> <span class="p">}</span>
+	<span class="nx">release</span> <span class="o">:=</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span> <span class="o">&lt;-</span><span class="nx">sem</span> <span class="p">}</span>
+	<span class="k">return</span> <span class="kd">func</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">gin</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>
+		<span class="nx">acquire</span><span class="p">()</span> <span class="c1">// before request
+</span><span class="c1"></span>		<span class="k">defer</span> <span class="nx">release</span><span class="p">()</span> <span class="c1">// after request
+</span><span class="c1"></span>		<span class="nx">c</span><span class="p">.</span><span class="nx">Next</span><span class="p">()</span>
+	<span class="p">}</span>
+<span class="p">}</span></code></pre></div>
+<p>但是不是有用，我本机测试了没看出来，当限制太小，连接请求太多时，套接口出错较多，这样也不太好不太稳定吧。以下是使用压测工具wrk -t12 -c400 -d20s <a href="http://localhost:8024/">http://localhost:8024/</a> （12线程400连接在20秒内连续请求），后台设置中间件函数MaxAllowed(20)时的测试数据（MacBookPro 2012 mid 8G）：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">Running</span> <span class="mi">20</span><span class="n">s</span> <span class="n">test</span> <span class="err">@</span> <span class="nl">http</span><span class="p">:</span><span class="c1">//localhost:8024/
+</span><span class="c1"></span>  <span class="mi">12</span> <span class="n">threads</span> <span class="n">and</span> <span class="mi">400</span> <span class="n">connections</span>
+  <span class="n">Thread</span> <span class="n">Stats</span>   <span class="n">Avg</span>      <span class="n">Stdev</span>     <span class="n">Max</span>   <span class="o">+/-</span> <span class="n">Stdev</span>
+    <span class="n">Latency</span>   <span class="mf">195.50</span><span class="n">ms</span>   <span class="mf">28.03</span><span class="n">ms</span> <span class="mf">325.07</span><span class="n">ms</span>   <span class="mf">80.47</span><span class="o">%</span>
+    <span class="n">Req</span><span class="o">/</span><span class="n">Sec</span>   <span class="mf">161.16</span>     <span class="mf">41.76</span>   <span class="mf">292.00</span>     <span class="mf">73.14</span><span class="o">%</span>
+  <span class="mi">38585</span> <span class="n">requests</span> <span class="n">in</span> <span class="mf">20.10</span><span class="n">s</span><span class="p">,</span> <span class="mf">23.36</span><span class="n">MB</span> <span class="n">read</span>
+  <span class="n">Socket</span> <span class="nl">errors</span><span class="p">:</span> <span class="n">connect</span> <span class="mi">0</span><span class="p">,</span> <span class="n">read</span> <span class="mi">249</span><span class="p">,</span> <span class="n">write</span> <span class="mi">0</span><span class="p">,</span> <span class="n">timeout</span> <span class="mi">0</span>
+<span class="n">Requests</span><span class="o">/</span><span class="nl">sec</span><span class="p">:</span>   <span class="mf">1919.73</span>
+<span class="n">Transfer</span><span class="o">/</span><span class="nl">sec</span><span class="p">:</span>      <span class="mf">1.16</span><span class="n">MB</span></code></pre></div>
+<p>另外这个中间件的机制还没太弄懂，acquire和release两个函数不都是在一个连接到来的请求时做的吗，其他连接没有控制到啊。据自己理解，应该是限制一个TCP Listener最多Accept允许<strong>n</strong>个连接进入吧。</p>
 
-<p><strong>Here is some bold text</strong></p>
-
-<h2 id="here-is-a-secondary-heading">Here is a secondary heading</h2>
-
-<p>Here&rsquo;s a useless table:</p>
-
-<table>
-<thead>
-<tr>
-<th align="left">Number</th>
-<th align="left">Next number</th>
-<th align="left">Previous number</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td align="left">Five</td>
-<td align="left">Six</td>
-<td align="left">Four</td>
-</tr>
-
-<tr>
-<td align="left">Ten</td>
-<td align="left">Eleven</td>
-<td align="left">Nine</td>
-</tr>
-
-<tr>
-<td align="left">Seven</td>
-<td align="left">Eight</td>
-<td align="left">Six</td>
-</tr>
-
-<tr>
-<td align="left">Two</td>
-<td align="left">Three</td>
-<td align="left">One</td>
-</tr>
-</tbody>
-</table>
-
-<p>How about a yummy crepe?</p>
-
-<p><img src="http://s3-media3.fl.yelpcdn.com/bphoto/cQ1Yoa75m2yUFFbY2xwuqw/348s.jpg" alt="Crepe" /></p>
-
-<p>Here&rsquo;s a code chunk with syntax highlighting:</p>
-<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">return</span><span class="p">(</span><span class="nx">x</span> <span class="o">+</span> <span class="mi">5</span><span class="p">);</span>
-<span class="p">}</span>
-<span class="nx">foo</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-</code></pre></div>
       </article>
 
       
         <ul class="pager blog-pager">
           
             <li class="previous">
-              <a href="https://semieye.github.io/post/examples/2015-02-13-hamlet-monologue/" data-toggle="tooltip" data-placement="top" title="To be">&larr; Previous Post</a>
+              <a href="https://semieye.github.io/post/2018/03/gin-contrib-cache/" data-toggle="tooltip" data-placement="top" title="Gin 源码学习（Gin Cache Middleware）">&larr; Previous Post</a>
             </li>
           
-          
-            <li class="next">
-              <a href="https://semieye.github.io/post/examples/2015-02-26-flake-it-till-you-make-it/" data-toggle="tooltip" data-placement="top" title="Flake it till you make it">Next Post &rarr;</a>
-            </li>
           
         </ul>
       

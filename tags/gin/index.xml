@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Go on Nothing lasts forever</title>
-    <link>https://semieye.github.io/tags/go/</link>
-    <description>Recent content in Go on Nothing lasts forever</description>
+    <title>Gin on Nothing lasts forever</title>
+    <link>https://semieye.github.io/tags/gin/</link>
+    <description>Recent content in Gin on Nothing lasts forever</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <managingEditor>semieye@qq.com (semieye)</managingEditor>
     <webMaster>semieye@qq.com (semieye)</webMaster>
     <lastBuildDate>Fri, 23 Mar 2018 22:40:52 +0800</lastBuildDate>
     
-	<atom:link href="https://semieye.github.io/tags/go/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://semieye.github.io/tags/gin/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -29,16 +29,6 @@
       <author>semieye@qq.com (semieye)</author>
       <guid>https://semieye.github.io/post/2018/03/gin-contrib-cache/</guid>
       <description>https://github.com/gin-contrib/cache 缓存</description>
-    </item>
-    
-    <item>
-      <title>记录一些值得学习的Go开源项目</title>
-      <link>https://semieye.github.io/post/2018/03/awesome-go-projects/</link>
-      <pubDate>Fri, 23 Mar 2018 16:29:06 +0800</pubDate>
-      <author>semieye@qq.com (semieye)</author>
-      <guid>https://semieye.github.io/post/2018/03/awesome-go-projects/</guid>
-      <description>&lt;p&gt;记录一些值得学习的Go开源项目
-&lt;/p&gt;</description>
     </item>
     
   </channel>
