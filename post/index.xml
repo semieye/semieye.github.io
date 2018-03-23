@@ -8,26 +8,38 @@
     <language>zh-CN</language>
     <managingEditor>semieye@qq.com (semieye)</managingEditor>
     <webMaster>semieye@qq.com (semieye)</webMaster>
-    <lastBuildDate>Fri, 23 Mar 2018 12:53:06 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 23 Mar 2018 16:29:06 +0800</lastBuildDate>
     
 	<atom:link href="https://semieye.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>记录一些值得学习的Go开源项目</title>
+      <link>https://semieye.github.io/post/2018/03/awesome-go-projects/</link>
+      <pubDate>Fri, 23 Mar 2018 16:29:06 +0800</pubDate>
+      <author>semieye@qq.com (semieye)</author>
+      <guid>https://semieye.github.io/post/2018/03/awesome-go-projects/</guid>
+      <description>&lt;p&gt;记录一些值得学习的Go开源项目
+&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>test-editor.md</title>
-      <link>https://semieye.github.io/post/2018/test-editor/</link>
+      <link>https://semieye.github.io/post/2018/03/test-editor/</link>
       <pubDate>Fri, 23 Mar 2018 12:53:06 +0800</pubDate>
       <author>semieye@qq.com (semieye)</author>
-      <guid>https://semieye.github.io/post/2018/test-editor/</guid>
-      <description>Editor.md From: https://github.com/pandao/editor.md 目录 (Table of Contents) [TOCM] [TOC] Heading 1 Heading 2 Heading 3 Heading 4 Heading 5 Heading 6 Heading 1 link Heading link Heading 2 link Heading link Heading 3 link Heading link Heading 4 link Heading link Heading link Heading link Heading 5 link Heading link Heading 6 link Heading link 标题（用底线的形式）Head</description>
+      <guid>https://semieye.github.io/post/2018/03/test-editor/</guid>
+      <description>&lt;p&gt;测试 &lt;a href=&#34;https://github.com/pandao/editor.md&#34;&gt;https://github.com/pandao/editor.md&lt;/a&gt; 生成的markdown文件格式。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>你好，Hugo</title>
-      <link>https://semieye.github.io/post/2018/2018-03-23-first-post/</link>
+      <link>https://semieye.github.io/post/2018/03/2018-03-23-first-post/</link>
       <pubDate>Thu, 22 Mar 2018 19:58:54 +0800</pubDate>
       <author>semieye@qq.com (semieye)</author>
-      <guid>https://semieye.github.io/post/2018/2018-03-23-first-post/</guid>
+      <guid>https://semieye.github.io/post/2018/03/2018-03-23-first-post/</guid>
       <description>这是使用Hugo创建的站点中的第一篇文章。</description>
     </item>
     
