@@ -8,10 +8,19 @@
     <language>zh-CN</language>
     <managingEditor>semieye@qq.com (semieye)</managingEditor>
     <webMaster>semieye@qq.com (semieye)</webMaster>
-    <lastBuildDate>Thu, 22 Mar 2018 19:58:54 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 23 Mar 2018 11:12:58 +0800</lastBuildDate>
     
 	<atom:link href="https://semieye.github.io/categories/development/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>你好，Hugo</title>
+      <link>https://semieye.github.io/post/test/</link>
+      <pubDate>Fri, 23 Mar 2018 11:12:58 +0800</pubDate>
+      <author>semieye@qq.com (semieye)</author>
+      <guid>https://semieye.github.io/post/test/</guid>
+      <description>这是使用Hugo创建的站点中的第一篇文章。</description>
+    </item>
     
     <item>
       <title>你好，Hugo</title>
