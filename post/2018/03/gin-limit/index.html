@@ -210,6 +210,8 @@
 </span><span class="c1"></span>		<span class="nx">c</span><span class="p">.</span><span class="nx">Next</span><span class="p">()</span>
 	<span class="p">}</span>
 <span class="p">}</span></code></pre></div>
+<p></p>
+
 <p>但是不是有用，我本机测试了没看出来，当限制太小，连接请求太多时，套接口出错较多，这样也不太好不太稳定吧。以下是使用压测工具wrk -t12 -c400 -d20s <a href="http://localhost:8024/">http://localhost:8024/</a> （12线程400连接在20秒内连续请求），后台设置中间件函数MaxAllowed(20)时的测试数据（MacBookPro 2012 mid 8G）：</p>
 <div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">Running</span> <span class="mi">20</span><span class="n">s</span> <span class="n">test</span> <span class="err">@</span> <span class="nl">http</span><span class="p">:</span><span class="c1">//localhost:8024/
 </span><span class="c1"></span>  <span class="mi">12</span> <span class="n">threads</span> <span class="n">and</span> <span class="mi">400</span> <span class="n">connections</span>
@@ -221,7 +223,6 @@
 <span class="n">Requests</span><span class="o">/</span><span class="nl">sec</span><span class="p">:</span>   <span class="mf">1919.73</span>
 <span class="n">Transfer</span><span class="o">/</span><span class="nl">sec</span><span class="p">:</span>      <span class="mf">1.16</span><span class="n">MB</span></code></pre></div>
 <p>另外这个中间件的机制还没太弄懂，acquire和release两个函数不都是在一个连接到来的请求时做的吗，其他连接没有控制到啊。据自己理解，应该是限制一个TCP Listener最多Accept允许<strong>n</strong>个连接进入吧。</p>
-
       </article>
 
       

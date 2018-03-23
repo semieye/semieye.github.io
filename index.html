@@ -211,7 +211,20 @@
 
               <div class="post-entry">
                 
-                  https://github.com/aviddiviner/gin-limit 请求限制 代码超级简单呐，利用空结构体和缓冲为n的chan做连接限制，请看： func MaxAllowed(n int) gin.HandlerFunc { sem := make(chan struct{}, n) acquire := func() { sem &lt;- struct{}{} } release := func() { &lt;-sem } return func(c *gin.Context) { acquire() // before request
+                  <p><a href="https://github.com/aviddiviner/gin-limit">https://github.com/aviddiviner/gin-limit</a> 请求限制</p>
+
+<p>代码超级简单呐，利用空结构体和缓冲为n的chan做连接限制，请看：</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nx">MaxAllowed</span><span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="nx">gin</span><span class="p">.</span><span class="nx">HandlerFunc</span> <span class="p">{</span>
+	<span class="nx">sem</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kd">struct</span><span class="p">{},</span> <span class="nx">n</span><span class="p">)</span>
+	<span class="nx">acquire</span> <span class="o">:=</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span> <span class="nx">sem</span> <span class="o">&lt;-</span> <span class="kd">struct</span><span class="p">{}{}</span> <span class="p">}</span>
+	<span class="nx">release</span> <span class="o">:=</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span> <span class="o">&lt;-</span><span class="nx">sem</span> <span class="p">}</span>
+	<span class="k">return</span> <span class="kd">func</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">gin</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>
+		<span class="nx">acquire</span><span class="p">()</span> <span class="c1">// before request
+</span><span class="c1"></span>		<span class="k">defer</span> <span class="nx">release</span><span class="p">()</span> <span class="c1">// after request
+</span><span class="c1"></span>		<span class="nx">c</span><span class="p">.</span><span class="nx">Next</span><span class="p">()</span>
+	<span class="p">}</span>
+<span class="p">}</span></code></pre></div>
+<p></p>
                   <a href="https://semieye.github.io/post/2018/03/gin-limit/" class="post-read-more">[Read More]</a>
                 
               </div>
