@@ -3,18 +3,18 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://semieye.github.io/post/2018/03/gin-contrib-cache/</loc>
+    <lastmod>2018-03-24T18:55:26+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://semieye.github.io/post/2018/03/gin-limit/</loc>
     <lastmod>2018-03-23T22:40:52+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://semieye.github.io/post/2018/03/gin-contrib-cache/</loc>
-    <lastmod>2018-03-23T21:55:26+08:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://semieye.github.io/post/2018/03/awesome-go-projects/</loc>
-    <lastmod>2018-03-23T16:29:06+08:00</lastmod>
+    <lastmod>2018-03-24T21:06:26+08:00</lastmod>
   </url>
   
   <url>
@@ -94,7 +94,20 @@
   </url>
   
   <url>
+    <loc>https://semieye.github.io/categories/cache/</loc>
+    <lastmod>2018-03-24T18:55:26+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://semieye.github.io/tags/cache/</loc>
+    <lastmod>2018-03-24T18:55:26+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://semieye.github.io/categories/</loc>
+    <lastmod>2018-03-24T18:55:26+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -111,31 +124,55 @@
   </url>
   
   <url>
-    <loc>https://semieye.github.io/tags/gin/</loc>
-    <lastmod>2018-03-23T22:40:52+08:00</lastmod>
+    <loc>https://semieye.github.io/categories/gin/</loc>
+    <lastmod>2018-03-24T18:55:26+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://semieye.github.io/categories/gin/</loc>
-    <lastmod>2018-03-23T22:40:52+08:00</lastmod>
+    <loc>https://semieye.github.io/tags/gin/</loc>
+    <lastmod>2018-03-24T18:55:26+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://semieye.github.io/categories/gin-middleware/</loc>
+    <lastmod>2018-03-24T18:55:26+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://semieye.github.io/tags/gin-middleware/</loc>
+    <lastmod>2018-03-24T18:55:26+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://semieye.github.io/tags/github/</loc>
-    <lastmod>2018-03-23T16:29:06+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://semieye.github.io/tags/go/</loc>
-    <lastmod>2018-03-23T22:40:52+08:00</lastmod>
+    <lastmod>2018-03-24T21:06:26+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://semieye.github.io/categories/go/</loc>
+    <lastmod>2018-03-24T18:55:26+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://semieye.github.io/tags/go/</loc>
+    <lastmod>2018-03-24T18:55:26+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://semieye.github.io/categories/limit/</loc>
+    <lastmod>2018-03-23T22:40:52+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://semieye.github.io/tags/limit/</loc>
     <lastmod>2018-03-23T22:40:52+08:00</lastmod>
     <priority>0</priority>
   </url>
@@ -154,7 +191,7 @@
   
   <url>
     <loc>https://semieye.github.io/</loc>
-    <lastmod>2018-03-23T22:40:52+08:00</lastmod>
+    <lastmod>2018-03-24T18:55:26+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -166,7 +203,7 @@
   
   <url>
     <loc>https://semieye.github.io/post/</loc>
-    <lastmod>2018-03-23T22:40:52+08:00</lastmod>
+    <lastmod>2018-03-24T18:55:26+08:00</lastmod>
     <priority>0</priority>
   </url>
   

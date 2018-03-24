@@ -26,8 +26,9 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://semieye.github.io/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="https://semieye.github.io/css/syntax.css" /><link rel="stylesheet" href="https://semieye.github.io/css/codeblock.css" />
+  <link rel="stylesheet" href="https://semieye.github.io/css/main.css" />
+  <link rel="stylesheet" href="https://fonts.loli.net/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.loli.net/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="https://semieye.github.io/css/syntax.css" /><link rel="stylesheet" href="https://semieye.github.io/css/codeblock.css" />
 
 
 
@@ -173,11 +174,11 @@
                   <span class="post-meta">
   
   
-  <i class="fa fa-calendar-o"></i>&nbsp;Posted on March 23, 2018
+  <i class="fa fa-calendar-o"></i>&nbsp;Posted on March 24, 2018
   
   
   &nbsp;|&nbsp;
-  <i class="fa fa-clock-o"></i> 1 minutes (3 words)
+  <i class="fa fa-clock-o"></i> 2 minutes (830 words)
   
   
 </span>
@@ -199,19 +200,80 @@
       <article role="main" class="blog-post">
         <p><a href="https://github.com/gin-contrib/cache">https://github.com/gin-contrib/cache</a> 缓存</p>
 
+<p>这个项目是Gin的一个Middleware，用于缓存请求结果，目前支持 <a href="https://github.com/robfig/go-cache"><u>go-cache</u></a> 内存缓存（ps：这个库最新的应该是这个地址：<a href="https://github.com/patrickmn/go-cache">patrickmn/go-cache</a>）、<a href="https://github.com/bradfitz/gomemcache"><u>memcached</u></a> 缓存、<a href="https://github.com/garyburd/redigo/redis"><u>redis</u></a> 缓存三种类型。这三个库以后再阅读学习，今天先完成这个项目的学习。缓存用的key采用<code>urlEscape</code>函数生成，规则为：前缀+冒号+URL(或其MD5)。</p>
+
+<p>示例中仅仅给了一个<code>CachePage</code>的用法：</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go">	<span class="nx">r</span><span class="p">.</span><span class="nx">GET</span><span class="p">(</span><span class="s">&#34;/cache_ping&#34;</span><span class="p">,</span> <span class="nx">cache</span><span class="p">.</span><span class="nx">CachePage</span><span class="p">(</span><span class="nx">store</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Minute</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">gin</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>
+		<span class="nx">c</span><span class="p">.</span><span class="nx">String</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="s">&#34;pong &#34;</span><span class="o">+</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Sprint</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">().</span><span class="nx">Unix</span><span class="p">()))</span>
+	<span class="p">}))</span></code></pre></div>
+<p></p>
+
+<p>但是<code>cache.go</code>中还有两个没想明白的函数，不知道该怎么用：</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nx">Cache</span><span class="p">(</span><span class="nx">store</span> <span class="o">*</span><span class="nx">persistence</span><span class="p">.</span><span class="nx">CacheStore</span><span class="p">)</span> <span class="nx">gin</span><span class="p">.</span><span class="nx">HandlerFunc</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="kd">func</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">gin</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>
+		<span class="nx">c</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="nx">CACHE_MIDDLEWARE_KEY</span><span class="p">,</span> <span class="nx">store</span><span class="p">)</span>
+		<span class="nx">c</span><span class="p">.</span><span class="nx">Next</span><span class="p">()</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">SiteCache</span><span class="p">(</span><span class="nx">store</span> <span class="nx">persistence</span><span class="p">.</span><span class="nx">CacheStore</span><span class="p">,</span> <span class="nx">expire</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Duration</span><span class="p">)</span> <span class="nx">gin</span><span class="p">.</span><span class="nx">HandlerFunc</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="kd">func</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">gin</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>
+		<span class="kd">var</span> <span class="nx">cache</span> <span class="nx">responseCache</span>
+		<span class="nx">url</span> <span class="o">:=</span> <span class="nx">c</span><span class="p">.</span><span class="nx">Request</span><span class="p">.</span><span class="nx">URL</span>
+		<span class="nx">key</span> <span class="o">:=</span> <span class="nx">urlEscape</span><span class="p">(</span><span class="nx">PageCachePrefix</span><span class="p">,</span> <span class="nx">url</span><span class="p">.</span><span class="nx">RequestURI</span><span class="p">())</span>
+		<span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">store</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">cache</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+			<span class="nx">c</span><span class="p">.</span><span class="nx">Next</span><span class="p">()</span>
+		<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+			<span class="nx">c</span><span class="p">.</span><span class="nx">Writer</span><span class="p">.</span><span class="nx">WriteHeader</span><span class="p">(</span><span class="nx">cache</span><span class="p">.</span><span class="nx">Status</span><span class="p">)</span>
+			<span class="k">for</span> <span class="nx">k</span><span class="p">,</span> <span class="nx">vals</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">cache</span><span class="p">.</span><span class="nx">Header</span> <span class="p">{</span>
+				<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">v</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">vals</span> <span class="p">{</span>
+					<span class="nx">c</span><span class="p">.</span><span class="nx">Writer</span><span class="p">.</span><span class="nx">Header</span><span class="p">().</span><span class="nx">Add</span><span class="p">(</span><span class="nx">k</span><span class="p">,</span> <span class="nx">v</span><span class="p">)</span>
+				<span class="p">}</span>
+			<span class="p">}</span>
+			<span class="nx">c</span><span class="p">.</span><span class="nx">Writer</span><span class="p">.</span><span class="nx">Write</span><span class="p">(</span><span class="nx">cache</span><span class="p">.</span><span class="nx">Data</span><span class="p">)</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+<span class="p">}</span></code></pre></div>
+<p><code>Cache</code>函数使用了一个接口指针作为参数，不知道该怎么传入参数，所以我提了一个<a href="https://github.com/gin-contrib/cache/issues/25"><strong>issue</strong></a>希望能够得到作者的解答，我觉得也许不需要指针也是可以的。代码只有一行，使用<code>c.Set</code>将缓存<code>store</code>的实例保存，应该是为了后续处理使用Set或Get等方法存取自己的缓存数据。</p>
+
+<p><code>SiteCache</code>函数定义了一个<code>expire</code> 参数，但实际并没有用到，看代码的意思是每个请求先取缓存，取到就返回缓存，没取到就继续下一步处理。</p>
+
+<p>还有一个<code>CachePageAtomic</code>函数，与<code>CachePage</code>函数类似，因为<code>CachePage</code>函数中在缓存不存在时可能会有替换Writer的情况，使用了sync.Mutex进行加互斥锁保证操作的原子性。</p>
+
+<p>在<code>cache_test.go</code>中，有一些有用的地方，可以学习，例如测试缓存HTML模板文件：</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nx">TestCacheHtmlFile</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">store</span> <span class="o">:=</span> <span class="nx">persistence</span><span class="p">.</span><span class="nx">NewInMemoryStore</span><span class="p">(</span><span class="mi">60</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
+
+	<span class="nx">router</span> <span class="o">:=</span> <span class="nx">gin</span><span class="p">.</span><span class="nx">New</span><span class="p">()</span>
+	<span class="nx">router</span><span class="p">.</span><span class="nx">LoadHTMLFiles</span><span class="p">(</span><span class="s">&#34;example/template.html&#34;</span><span class="p">)</span>
+	<span class="nx">router</span><span class="p">.</span><span class="nx">GET</span><span class="p">(</span><span class="s">&#34;/cache_html&#34;</span><span class="p">,</span> <span class="nx">CachePage</span><span class="p">(</span><span class="nx">store</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="o">*</span><span class="mi">3</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">gin</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>
+		<span class="nx">c</span><span class="p">.</span><span class="nx">HTML</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">StatusOK</span><span class="p">,</span> <span class="s">&#34;template.html&#34;</span><span class="p">,</span> <span class="nx">gin</span><span class="p">.</span><span class="nx">H</span><span class="p">{</span><span class="s">&#34;values&#34;</span><span class="p">:</span> <span class="nx">fmt</span><span class="p">.</span><span class="nx">Sprint</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">().</span><span class="nx">UnixNano</span><span class="p">())})</span>
+	<span class="p">}))</span>
+
+	<span class="nx">w1</span> <span class="o">:=</span> <span class="nx">performRequest</span><span class="p">(</span><span class="s">&#34;GET&#34;</span><span class="p">,</span> <span class="s">&#34;/cache_html&#34;</span><span class="p">,</span> <span class="nx">router</span><span class="p">)</span>
+	<span class="nx">w2</span> <span class="o">:=</span> <span class="nx">performRequest</span><span class="p">(</span><span class="s">&#34;GET&#34;</span><span class="p">,</span> <span class="s">&#34;/cache_html&#34;</span><span class="p">,</span> <span class="nx">router</span><span class="p">)</span>
+
+	<span class="nx">assert</span><span class="p">.</span><span class="nx">Equal</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="nx">w1</span><span class="p">.</span><span class="nx">Code</span><span class="p">)</span>
+	<span class="nx">assert</span><span class="p">.</span><span class="nx">Equal</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="nx">w2</span><span class="p">.</span><span class="nx">Code</span><span class="p">)</span>
+	<span class="nx">assert</span><span class="p">.</span><span class="nx">Equal</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span> <span class="nx">w1</span><span class="p">.</span><span class="nx">Body</span><span class="p">.</span><span class="nx">String</span><span class="p">(),</span> <span class="nx">w2</span><span class="p">.</span><span class="nx">Body</span><span class="p">.</span><span class="nx">String</span><span class="p">())</span>
+<span class="p">}</span></code></pre></div>
+<p>其中<code>performRequest</code>函数使用httptest包发测试请求、截获响应报文：</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nx">performRequest</span><span class="p">(</span><span class="nx">method</span><span class="p">,</span> <span class="nx">target</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">router</span> <span class="o">*</span><span class="nx">gin</span><span class="p">.</span><span class="nx">Engine</span><span class="p">)</span> <span class="o">*</span><span class="nx">httptest</span><span class="p">.</span><span class="nx">ResponseRecorder</span> <span class="p">{</span>
+	<span class="nx">r</span> <span class="o">:=</span> <span class="nx">httptest</span><span class="p">.</span><span class="nx">NewRequest</span><span class="p">(</span><span class="nx">method</span><span class="p">,</span> <span class="nx">target</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span>
+	<span class="nx">w</span> <span class="o">:=</span> <span class="nx">httptest</span><span class="p">.</span><span class="nx">NewRecorder</span><span class="p">()</span>
+	<span class="nx">router</span><span class="p">.</span><span class="nx">ServeHTTP</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span>
+	<span class="k">return</span> <span class="nx">w</span>
+<span class="p">}</span></code></pre></div>
+<p>总而言之，通过这个库，可以了解到如何缓存WEB请求，以后可以在项目中用到部分功能和思想，例如缓存静态页面、数据较为固定的展示页面等等。</p>
       </article>
 
       
         <ul class="pager blog-pager">
           
             <li class="previous">
-              <a href="https://semieye.github.io/post/2018/03/awesome-go-projects/" data-toggle="tooltip" data-placement="top" title="记录一些值得学习的Go开源项目">&larr; Previous Post</a>
+              <a href="https://semieye.github.io/post/2018/03/gin-limit/" data-toggle="tooltip" data-placement="top" title="Gin 源码学习（Gin Limit Middleware）">&larr; Previous Post</a>
             </li>
           
-          
-            <li class="next">
-              <a href="https://semieye.github.io/post/2018/03/gin-limit/" data-toggle="tooltip" data-placement="top" title="Gin 源码学习（Gin Limit Middleware）">Next Post &rarr;</a>
-            </li>
           
         </ul>
       

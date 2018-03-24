@@ -8,10 +8,27 @@
     <language>zh-CN</language>
     <managingEditor>semieye@qq.com (semieye)</managingEditor>
     <webMaster>semieye@qq.com (semieye)</webMaster>
-    <lastBuildDate>Fri, 23 Mar 2018 22:40:52 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 24 Mar 2018 18:55:26 +0800</lastBuildDate>
     
 	<atom:link href="https://semieye.github.io/categories/go/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Gin 源码学习（Gin Cache Middleware）</title>
+      <link>https://semieye.github.io/post/2018/03/gin-contrib-cache/</link>
+      <pubDate>Sat, 24 Mar 2018 18:55:26 +0800</pubDate>
+      <author>semieye@qq.com (semieye)</author>
+      <guid>https://semieye.github.io/post/2018/03/gin-contrib-cache/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://github.com/gin-contrib/cache&#34;&gt;https://github.com/gin-contrib/cache&lt;/a&gt; 缓存&lt;/p&gt;
+
+&lt;p&gt;这个项目是Gin的一个Middleware，用于缓存请求结果，目前支持 &lt;a href=&#34;https://github.com/robfig/go-cache&#34;&gt;&lt;u&gt;go-cache&lt;/u&gt;&lt;/a&gt; 内存缓存（ps：这个库最新的应该是这个地址：&lt;a href=&#34;https://github.com/patrickmn/go-cache&#34;&gt;patrickmn/go-cache&lt;/a&gt;）、&lt;a href=&#34;https://github.com/bradfitz/gomemcache&#34;&gt;&lt;u&gt;memcached&lt;/u&gt;&lt;/a&gt; 缓存、&lt;a href=&#34;https://github.com/garyburd/redigo/redis&#34;&gt;&lt;u&gt;redis&lt;/u&gt;&lt;/a&gt; 缓存三种类型。这三个库以后再阅读学习，今天先完成这个项目的学习。缓存用的key采用&lt;code&gt;urlEscape&lt;/code&gt;函数生成，规则为：前缀+冒号+URL(或其MD5)。&lt;/p&gt;
+
+&lt;p&gt;示例中仅仅给了一个&lt;code&gt;CachePage&lt;/code&gt;的用法：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;	&lt;span class=&#34;nx&#34;&gt;r&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;GET&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;/cache_ping&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;cache&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;CachePage&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;store&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;time&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Minute&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;c&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;gin&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Context&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+		&lt;span class=&#34;nx&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;200&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;pong &amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;fmt&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Sprint&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;time&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Now&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Unix&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()))&lt;/span&gt;
+	&lt;span class=&#34;p&#34;&gt;}))&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Gin 源码学习（Gin Limit Middleware）</title>
@@ -36,21 +53,12 @@
     </item>
     
     <item>
-      <title>Gin 源码学习（Gin Cache Middleware）</title>
-      <link>https://semieye.github.io/post/2018/03/gin-contrib-cache/</link>
-      <pubDate>Fri, 23 Mar 2018 21:55:26 +0800</pubDate>
-      <author>semieye@qq.com (semieye)</author>
-      <guid>https://semieye.github.io/post/2018/03/gin-contrib-cache/</guid>
-      <description>https://github.com/gin-contrib/cache 缓存</description>
-    </item>
-    
-    <item>
       <title>记录一些值得学习的Go开源项目</title>
       <link>https://semieye.github.io/post/2018/03/awesome-go-projects/</link>
       <pubDate>Fri, 23 Mar 2018 16:29:06 +0800</pubDate>
       <author>semieye@qq.com (semieye)</author>
       <guid>https://semieye.github.io/post/2018/03/awesome-go-projects/</guid>
-      <description>&lt;p&gt;记录一些值得学习的Go开源项目
+      <description>&lt;p&gt;记录一些值得学习的Go开源项目，以前是部分链接，留待以后学习。
 &lt;/p&gt;</description>
     </item>
     

@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>Gin Middleware</title>
+  <meta property="og:title" content="Gin Middleware" />
+  <meta name="twitter:title" content="Gin Middleware" />
+  <meta name="author" content="semieye"/>
+  <link href='https://semieye.github.io/img/favicon.ico' rel='icon' type='image/x-icon'/>
+  <meta property="og:image" content="https://semieye.github.io/img/avatar-icon.png" />
+  <meta name="twitter:image" content="https://semieye.github.io/img/avatar-icon.png" />
+  <meta name="twitter:card" content="summary" />
+  <meta property="og:url" content="https://semieye.github.io/categories/gin-middleware/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Nothing lasts forever" />
+
+  <meta name="generator" content="Hugo 0.37.1" />
+  <link rel="canonical" href="https://semieye.github.io/categories/gin-middleware/" />
+  <link rel="alternate" href="https://semieye.github.io/categories/gin-middleware/index.xml" type="application/rss+xml" title="Nothing lasts forever">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://semieye.github.io/css/main.css" />
+  <link rel="stylesheet" href="https://fonts.loli.net/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.loli.net/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="https://semieye.github.io/css/syntax.css" /><link rel="stylesheet" href="https://semieye.github.io/css/codeblock.css" />
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+</head>
+
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://semieye.github.io/">Nothing lasts forever</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Blog" href="/post">Blog</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="About" href="/about">About</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Tags" href="/tags">Tags</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Categories" href="/categories">Categories</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    <div class="avatar-container">
+      <div class="avatar-img-border">
+        
+          <a title="Nothing lasts forever" href="https://semieye.github.io/">
+            <img class="avatar-img" src="https://semieye.github.io/img/avatar-icon.png" alt="Nothing lasts forever" />
+          </a>
+        
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+
+
+    
+  <header class="header-section ">
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="page-heading">
+              <h2>#Gin Middleware</h2>
+              <hr class="small">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+    
+  <div class="container" role="main">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        
+        <div class="posts-list">
+          
+            <article class="post-preview">
+              <a href="https://semieye.github.io/post/2018/03/gin-contrib-cache/">
+                <h2 class="post-title">Gin 源码学习（Gin Cache Middleware）</h2>
+
+                
+                  <h3 class="post-subtitle">
+                    Gin Contrib Cache
+                  </h3>
+                
+              </a>
+
+              <p class="post-meta">
+                Posted on March 24, 2018
+
+  
+  &nbsp;|&nbsp;
+  <i class="fa fa-clock-o"></i> 2 minutes (830 words)
+  
+              </p>
+              <div class="post-entry">
+                
+                  <p><a href="https://github.com/gin-contrib/cache">https://github.com/gin-contrib/cache</a> 缓存</p>
+
+<p>这个项目是Gin的一个Middleware，用于缓存请求结果，目前支持 <a href="https://github.com/robfig/go-cache"><u>go-cache</u></a> 内存缓存（ps：这个库最新的应该是这个地址：<a href="https://github.com/patrickmn/go-cache">patrickmn/go-cache</a>）、<a href="https://github.com/bradfitz/gomemcache"><u>memcached</u></a> 缓存、<a href="https://github.com/garyburd/redigo/redis"><u>redis</u></a> 缓存三种类型。这三个库以后再阅读学习，今天先完成这个项目的学习。缓存用的key采用<code>urlEscape</code>函数生成，规则为：前缀+冒号+URL(或其MD5)。</p>
+
+<p>示例中仅仅给了一个<code>CachePage</code>的用法：</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go">	<span class="nx">r</span><span class="p">.</span><span class="nx">GET</span><span class="p">(</span><span class="s">&#34;/cache_ping&#34;</span><span class="p">,</span> <span class="nx">cache</span><span class="p">.</span><span class="nx">CachePage</span><span class="p">(</span><span class="nx">store</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Minute</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">gin</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>
+		<span class="nx">c</span><span class="p">.</span><span class="nx">String</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="s">&#34;pong &#34;</span><span class="o">+</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Sprint</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">().</span><span class="nx">Unix</span><span class="p">()))</span>
+	<span class="p">}))</span></code></pre></div>
+<p></p>
+                  <a href="https://semieye.github.io/post/2018/03/gin-contrib-cache/" class="post-read-more">[Read More]</a>
+                
+              </div>
+
+              
+                <span class="post-meta">
+                  
+                    #<a href="https://semieye.github.io//tags/go/">Go</a>&nbsp;
+                  
+                    #<a href="https://semieye.github.io//tags/gin/">Gin</a>&nbsp;
+                  
+                    #<a href="https://semieye.github.io//tags/gin-middleware/">Gin Middleware</a>&nbsp;
+                  
+                    #<a href="https://semieye.github.io//tags/cache/">Cache</a>&nbsp;
+                  
+                </span>
+              
+
+            </article>
+          
+            <article class="post-preview">
+              <a href="https://semieye.github.io/post/2018/03/gin-limit/">
+                <h2 class="post-title">Gin 源码学习（Gin Limit Middleware）</h2>
+
+                
+                  <h3 class="post-subtitle">
+                    Gin Limit Middleware
+                  </h3>
+                
+              </a>
+
+              <p class="post-meta">
+                Posted on March 23, 2018
+
+  
+  &nbsp;|&nbsp;
+  <i class="fa fa-clock-o"></i> 1 minutes (366 words)
+  
+              </p>
+              <div class="post-entry">
+                
+                  <p><a href="https://github.com/aviddiviner/gin-limit">https://github.com/aviddiviner/gin-limit</a> 请求限制</p>
+
+<p>代码超级简单呐，利用空结构体和缓冲为n的chan做连接限制，请看：</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nx">MaxAllowed</span><span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="nx">gin</span><span class="p">.</span><span class="nx">HandlerFunc</span> <span class="p">{</span>
+	<span class="nx">sem</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kd">struct</span><span class="p">{},</span> <span class="nx">n</span><span class="p">)</span>
+	<span class="nx">acquire</span> <span class="o">:=</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span> <span class="nx">sem</span> <span class="o">&lt;-</span> <span class="kd">struct</span><span class="p">{}{}</span> <span class="p">}</span>
+	<span class="nx">release</span> <span class="o">:=</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span> <span class="o">&lt;-</span><span class="nx">sem</span> <span class="p">}</span>
+	<span class="k">return</span> <span class="kd">func</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">gin</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>
+		<span class="nx">acquire</span><span class="p">()</span> <span class="c1">// before request
+</span><span class="c1"></span>		<span class="k">defer</span> <span class="nx">release</span><span class="p">()</span> <span class="c1">// after request
+</span><span class="c1"></span>		<span class="nx">c</span><span class="p">.</span><span class="nx">Next</span><span class="p">()</span>
+	<span class="p">}</span>
+<span class="p">}</span></code></pre></div>
+<p></p>
+                  <a href="https://semieye.github.io/post/2018/03/gin-limit/" class="post-read-more">[Read More]</a>
+                
+              </div>
+
+              
+                <span class="post-meta">
+                  
+                    #<a href="https://semieye.github.io//tags/go/">Go</a>&nbsp;
+                  
+                    #<a href="https://semieye.github.io//tags/gin/">Gin</a>&nbsp;
+                  
+                    #<a href="https://semieye.github.io//tags/gin-middleware/">Gin Middleware</a>&nbsp;
+                  
+                    #<a href="https://semieye.github.io//tags/limit/">Limit</a>&nbsp;
+                  
+                </span>
+              
+
+            </article>
+          
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+    <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="mailto:semieye@qq.com" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.facebook.com/" title="Facebook">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://plus.google.com/" title="Google&#43;">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-google-plus fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/semieye" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://twitter.com/" title="Twitter">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.instagram.com/" title="Instagram">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-instagram fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.youtube.com/" title="Youtube">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-youtube fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="https://semieye.github.io/">semieye</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;
+          2018
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://semieye.github.io/">Nothing lasts forever</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="http://gohugo.io">Hugo v0.37.1</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js" integrity="sha384-dq1/gEHSxPZQ7DdrM82ID4YVol9BYyU7GbWlIwnwyPzotpoc57wDw/guX8EaYGPx" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://semieye.github.io/js/main.js"></script><script> renderMathInElement(document.body); </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script>
+<script src="https://semieye.github.io/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+  </body>
+</html>
+

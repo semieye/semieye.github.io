@@ -8,25 +8,53 @@
     <language>zh-CN</language>
     <managingEditor>semieye@qq.com (semieye)</managingEditor>
     <webMaster>semieye@qq.com (semieye)</webMaster>
+    <lastBuildDate>Sat, 24 Mar 2018 18:55:26 +0800</lastBuildDate>
     
 	<atom:link href="https://semieye.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>Cache</title>
+      <link>https://semieye.github.io/categories/cache/</link>
+      <pubDate>Sat, 24 Mar 2018 18:55:26 +0800</pubDate>
+      <author>semieye@qq.com (semieye)</author>
+      <guid>https://semieye.github.io/categories/cache/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Gin</title>
       <link>https://semieye.github.io/categories/gin/</link>
-      <pubDate>Fri, 23 Mar 2018 22:40:52 +0800</pubDate>
+      <pubDate>Sat, 24 Mar 2018 18:55:26 +0800</pubDate>
       <author>semieye@qq.com (semieye)</author>
       <guid>https://semieye.github.io/categories/gin/</guid>
       <description></description>
     </item>
     
     <item>
+      <title>Gin Middleware</title>
+      <link>https://semieye.github.io/categories/gin-middleware/</link>
+      <pubDate>Sat, 24 Mar 2018 18:55:26 +0800</pubDate>
+      <author>semieye@qq.com (semieye)</author>
+      <guid>https://semieye.github.io/categories/gin-middleware/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Go</title>
       <link>https://semieye.github.io/categories/go/</link>
-      <pubDate>Fri, 23 Mar 2018 22:40:52 +0800</pubDate>
+      <pubDate>Sat, 24 Mar 2018 18:55:26 +0800</pubDate>
       <author>semieye@qq.com (semieye)</author>
       <guid>https://semieye.github.io/categories/go/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Limit</title>
+      <link>https://semieye.github.io/categories/limit/</link>
+      <pubDate>Fri, 23 Mar 2018 22:40:52 +0800</pubDate>
+      <author>semieye@qq.com (semieye)</author>
+      <guid>https://semieye.github.io/categories/limit/</guid>
       <description></description>
     </item>
     

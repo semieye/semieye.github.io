@@ -23,8 +23,9 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://semieye.github.io/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="https://semieye.github.io/css/syntax.css" /><link rel="stylesheet" href="https://semieye.github.io/css/codeblock.css" />
+  <link rel="stylesheet" href="https://semieye.github.io/css/main.css" />
+  <link rel="stylesheet" href="https://fonts.loli.net/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.loli.net/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="https://semieye.github.io/css/syntax.css" /><link rel="stylesheet" href="https://semieye.github.io/css/codeblock.css" />
 
 
 
@@ -151,8 +152,31 @@
 
 
   
+    <div id="header-big-imgs" data-num-img=1 data-img-src-1="https://semieye.github.io/img/path.jpg" ></div>
+  
 
-  <header class="header-section ">
+  <header class="header-section has-img">
+    
+      <div class="intro-header big-img">
+        
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+              <div class="page-heading">
+                <h2>Nothing lasts forever</h2>
+                  
+                    
+                      <hr class="small">
+                      <span class="page-subheading">Developer * Programmer * Gogher</span>
+                    
+                  
+                  
+              </div>
+            </div>
+          </div>
+        </div>
+        <span class="img-desc" style="display: inline;"></span>
+      </div>
     
     <div class="intro-header no-img">
       
@@ -184,6 +208,60 @@
 
         <div class="posts-list">
           
+          
+            <article class="post-preview">
+              <a href="https://semieye.github.io/post/2018/03/gin-contrib-cache/">
+                <h2 class="post-title">Gin 源码学习（Gin Cache Middleware）</h2>
+                
+                  <h3 class="post-subtitle">
+                  Gin Contrib Cache
+                  </h3>
+                
+                
+              </a>
+
+              <span class="post-meta">
+  
+  
+  <i class="fa fa-calendar-o"></i>&nbsp;Posted on March 24, 2018
+  
+  
+  &nbsp;|&nbsp;
+  <i class="fa fa-clock-o"></i> 2 minutes (830 words)
+  
+  
+</span>
+
+
+              <div class="post-entry">
+                
+                  <p><a href="https://github.com/gin-contrib/cache">https://github.com/gin-contrib/cache</a> 缓存</p>
+
+<p>这个项目是Gin的一个Middleware，用于缓存请求结果，目前支持 <a href="https://github.com/robfig/go-cache"><u>go-cache</u></a> 内存缓存（ps：这个库最新的应该是这个地址：<a href="https://github.com/patrickmn/go-cache">patrickmn/go-cache</a>）、<a href="https://github.com/bradfitz/gomemcache"><u>memcached</u></a> 缓存、<a href="https://github.com/garyburd/redigo/redis"><u>redis</u></a> 缓存三种类型。这三个库以后再阅读学习，今天先完成这个项目的学习。缓存用的key采用<code>urlEscape</code>函数生成，规则为：前缀+冒号+URL(或其MD5)。</p>
+
+<p>示例中仅仅给了一个<code>CachePage</code>的用法：</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go">	<span class="nx">r</span><span class="p">.</span><span class="nx">GET</span><span class="p">(</span><span class="s">&#34;/cache_ping&#34;</span><span class="p">,</span> <span class="nx">cache</span><span class="p">.</span><span class="nx">CachePage</span><span class="p">(</span><span class="nx">store</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Minute</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">gin</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>
+		<span class="nx">c</span><span class="p">.</span><span class="nx">String</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="s">&#34;pong &#34;</span><span class="o">+</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Sprint</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">().</span><span class="nx">Unix</span><span class="p">()))</span>
+	<span class="p">}))</span></code></pre></div>
+<p></p>
+                  <a href="https://semieye.github.io/post/2018/03/gin-contrib-cache/" class="post-read-more">[Read More]</a>
+                
+              </div>
+
+              
+                <span class="post-meta">
+                
+                  #<a href="https://semieye.github.io//tags/go/">Go</a>&nbsp;
+                
+                  #<a href="https://semieye.github.io//tags/gin/">Gin</a>&nbsp;
+                
+                  #<a href="https://semieye.github.io//tags/gin-middleware/">Gin Middleware</a>&nbsp;
+                
+                  #<a href="https://semieye.github.io//tags/cache/">Cache</a>&nbsp;
+                
+                </span>
+              
+            </article>
           
             <article class="post-preview">
               <a href="https://semieye.github.io/post/2018/03/gin-limit/">
@@ -236,47 +314,9 @@
                 
                   #<a href="https://semieye.github.io//tags/gin/">Gin</a>&nbsp;
                 
-                </span>
-              
-            </article>
-          
-            <article class="post-preview">
-              <a href="https://semieye.github.io/post/2018/03/gin-contrib-cache/">
-                <h2 class="post-title">Gin 源码学习（Gin Cache Middleware）</h2>
+                  #<a href="https://semieye.github.io//tags/gin-middleware/">Gin Middleware</a>&nbsp;
                 
-                  <h3 class="post-subtitle">
-                  Gin Contrib Cache
-                  </h3>
-                
-                
-              </a>
-
-              <span class="post-meta">
-  
-  
-  <i class="fa fa-calendar-o"></i>&nbsp;Posted on March 23, 2018
-  
-  
-  &nbsp;|&nbsp;
-  <i class="fa fa-clock-o"></i> 1 minutes (3 words)
-  
-  
-</span>
-
-
-              <div class="post-entry">
-                
-                  <p><a href="https://github.com/gin-contrib/cache">https://github.com/gin-contrib/cache</a> 缓存</p>
-
-                
-              </div>
-
-              
-                <span class="post-meta">
-                
-                  #<a href="https://semieye.github.io//tags/go/">Go</a>&nbsp;
-                
-                  #<a href="https://semieye.github.io//tags/gin/">Gin</a>&nbsp;
+                  #<a href="https://semieye.github.io//tags/limit/">Limit</a>&nbsp;
                 
                 </span>
               
@@ -298,9 +338,11 @@
   
   <i class="fa fa-calendar-o"></i>&nbsp;Posted on March 23, 2018
   
+    &nbsp;(Last modified on March 24, 2018)
+  
   
   &nbsp;|&nbsp;
-  <i class="fa fa-clock-o"></i> 1 minutes (171 words)
+  <i class="fa fa-clock-o"></i> 1 minutes (189 words)
   
   
 </span>
@@ -308,7 +350,7 @@
 
               <div class="post-entry">
                 
-                  <p>记录一些值得学习的Go开源项目
+                  <p>记录一些值得学习的Go开源项目，以前是部分链接，留待以后学习。
 </p>
                   <a href="https://semieye.github.io/post/2018/03/awesome-go-projects/" class="post-read-more">[Read More]</a>
                 
