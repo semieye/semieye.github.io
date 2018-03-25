@@ -8,10 +8,20 @@
     <language>zh-CN</language>
     <managingEditor>semieye@qq.com (semieye)</managingEditor>
     <webMaster>semieye@qq.com (semieye)</webMaster>
-    <lastBuildDate>Sat, 24 Mar 2018 18:55:26 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 23 Mar 2018 16:29:06 +0800</lastBuildDate>
     
 	<atom:link href="https://semieye.github.io/tags/go/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Go开源项目（自己整理记录的）</title>
+      <link>https://semieye.github.io/post/2018/03/awesome-go-projects/</link>
+      <pubDate>Fri, 23 Mar 2018 16:29:06 +0800</pubDate>
+      <author>semieye@qq.com (semieye)</author>
+      <guid>https://semieye.github.io/post/2018/03/awesome-go-projects/</guid>
+      <description>&lt;p&gt;记录一些值得学习的Go开源项目，以下是部分链接，留待以后学习。主要是学习其中的一些中小型项目，学习和借鉴其中蕴含的思想和技术，有些或者直接拿来使用 :-) 。中大型项目例如&lt;code&gt;Docker&lt;/code&gt;、&lt;code&gt;Kubernetes&lt;/code&gt;、&lt;code&gt;etcd&lt;/code&gt;、&lt;code&gt;Flynn&lt;/code&gt;、&lt;code&gt;nsq&lt;/code&gt; 等等…&amp;hellip;，太多太大了，有精力再说，估计没有那么多的时间和精力。
+&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Gin 源码学习（Gin Cache Middleware）</title>
@@ -61,16 +71,6 @@
 	&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>记录一些值得学习的Go开源项目</title>
-      <link>https://semieye.github.io/post/2018/03/awesome-go-projects/</link>
-      <pubDate>Fri, 23 Mar 2018 16:29:06 +0800</pubDate>
-      <author>semieye@qq.com (semieye)</author>
-      <guid>https://semieye.github.io/post/2018/03/awesome-go-projects/</guid>
-      <description>&lt;p&gt;记录一些值得学习的Go开源项目，以前是部分链接，留待以后学习。
-&lt;/p&gt;</description>
     </item>
     
   </channel>
