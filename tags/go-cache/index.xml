@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Go Cache on Nothing lasts forever</title>
+    <link>https://semieye.github.io/tags/go-cache/</link>
+    <description>Recent content in Go Cache on Nothing lasts forever</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <managingEditor>semieye@qq.com (semieye)</managingEditor>
+    <webMaster>semieye@qq.com (semieye)</webMaster>
+    <lastBuildDate>Sun, 25 Mar 2018 20:36:52 +0800</lastBuildDate>
+    
+	<atom:link href="https://semieye.github.io/tags/go-cache/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Go 源码学习（ go-cache ）</title>
+      <link>https://semieye.github.io/post/2018/03/go-cache/</link>
+      <pubDate>Sun, 25 Mar 2018 20:36:52 +0800</pubDate>
+      <author>semieye@qq.com (semieye)</author>
+      <guid>https://semieye.github.io/post/2018/03/go-cache/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://github.com/patrickmn/go-cache&#34;&gt;https://github.com/patrickmn/go-cache&lt;/a&gt; 缓存&lt;/p&gt;
+
+&lt;p&gt;上次学习 &lt;a href=&#34;https://github.com/gin-contrib/cache&#34;&gt;&lt;u&gt;gin-contrib/cache&lt;/u&gt; &lt;/a&gt; 的源码时，说到其支持的 &lt;a href=&#34;https://github.com/robfig/go-cache&#34;&gt;&lt;u&gt;go-cache&lt;/u&gt;&lt;/a&gt; 内存缓存，但发现该库最后更新是5、6年前，并且fork自：&lt;a href=&#34;https://github.com/patrickmn/go-cache&#34;&gt;&lt;u&gt;patrickmn/go-cache&lt;/u&gt;&lt;/a&gt; ，而原作者去年仍然在少量更新，并且有一些变化，今天对这个库阅读分析一下。&lt;/p&gt;
+
+&lt;p&gt;这是一个类似于&lt;code&gt;memcached&lt;/code&gt;的&lt;code&gt;key-value&lt;/code&gt;型内存缓存，但并不是独立服务程序，可以被当做一个库编译进程序，适合单机应用，线程安全。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>Go 源码学习（ go-cache ）</title>
+  <meta property="og:title" content="Go 源码学习（ go-cache ）" />
+  <meta name="twitter:title" content="Go 源码学习（ go-cache ）" />
+  <meta name="description" content="记录一些值得学习的Go开源项目">
+  <meta property="og:description" content="记录一些值得学习的Go开源项目">
+  <meta name="twitter:description" content="记录一些值得学习的Go开源项目">
+  <meta name="author" content="semieye"/>
+  <link href='https://semieye.github.io/img/favicon.ico' rel='icon' type='image/x-icon'/>
+  <meta property="og:image" content="https://semieye.github.io/img/avatar-icon.png" />
+  <meta name="twitter:image" content="https://semieye.github.io/img/avatar-icon.png" />
+  <meta name="twitter:card" content="summary" />
+  <meta property="og:url" content="https://semieye.github.io/post/2018/03/go-cache/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Nothing lasts forever" />
+
+  <meta name="generator" content="Hugo 0.37.1" />
+  <link rel="canonical" href="https://semieye.github.io/post/2018/03/go-cache/" />
+  <link rel="alternate" href="https://semieye.github.io/index.xml" type="application/rss+xml" title="Nothing lasts forever">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://semieye.github.io/css/main.css" />
+  <link rel="stylesheet" href="https://fonts.loli.net/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.loli.net/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="https://semieye.github.io/css/syntax.css" /><link rel="stylesheet" href="https://semieye.github.io/css/codeblock.css" />
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+</head>
+
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://semieye.github.io/">Nothing lasts forever</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Blog" href="/post">Blog</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="About" href="/about">About</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Tags" href="/tags">Tags</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Categories" href="/categories">Categories</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    <div class="avatar-container">
+      <div class="avatar-img-border">
+        
+          <a title="Nothing lasts forever" href="https://semieye.github.io/">
+            <img class="avatar-img" src="https://semieye.github.io/img/avatar-icon.png" alt="Nothing lasts forever" />
+          </a>
+        
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+
+
+    
+  
+  
+  
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              <h2>Go 源码学习（ go-cache ）</h2>
+                
+                  
+                    <h2 class="post-subheading">go-cache</h2>
+                  
+                
+                
+                  <span class="post-meta">
+  
+  
+  <i class="fa fa-calendar-o"></i>&nbsp;Posted on Sun, 25 Mar 2018 20:36:52 CST
+  
+  &nbsp;|&nbsp;
+  <i class="fa fa-clock-o"></i> 2 minutes (960 words)
+  
+  
+  
+</span>
+
+
+                
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <p><a href="https://github.com/patrickmn/go-cache">https://github.com/patrickmn/go-cache</a> 缓存</p>
+
+<p>上次学习 <a href="https://github.com/gin-contrib/cache"><u>gin-contrib/cache</u> </a> 的源码时，说到其支持的 <a href="https://github.com/robfig/go-cache"><u>go-cache</u></a> 内存缓存，但发现该库最后更新是5、6年前，并且fork自：<a href="https://github.com/patrickmn/go-cache"><u>patrickmn/go-cache</u></a> ，而原作者去年仍然在少量更新，并且有一些变化，今天对这个库阅读分析一下。</p>
+
+<p>这是一个类似于<code>memcached</code>的<code>key-value</code>型内存缓存，但并不是独立服务程序，可以被当做一个库编译进程序，适合单机应用，线程安全。</p>
+
+<p></p>
+
+<p>特点：支持缓存任意Object、拥有指定有效期或者永久有效，线程安全。跟最初版本相比，增加了一些变更，貌似是建议废弃原有代码中的<code>Save</code>、<code>Load</code>、<code>SaveFile</code>、<code>LoadFile</code>函数（但函数没有删除，仍然可以使用），看注释应该是由于用户<code>type</code>类型在序列化、反序列化时需要用<code>gob.Register()</code>进行注册，那不如交给用户自己去注册，而不是库里面不管三七二十一全部注册。同时新增了<code>c.Items()</code> and <code>NewFrom()</code>两个方法返回所有未失效的或载入一个<code>map[string]Item</code>，用户可以自行持久化用于停机后快速恢复。</p>
+
+<p>缓存项目<code>Item</code>的结构：</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">Item</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">Object</span>     <span class="kd">interface</span><span class="p">{}</span>
+	<span class="nx">Expiration</span> <span class="kt">int64</span>
+<span class="p">}</span></code></pre></div>
+<p>缓存<code>Cache</code>的结构：</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">Cache</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="o">*</span><span class="nx">cache</span>
+	<span class="c1">// If this is confusing, see the comment at the bottom of New()
+</span><span class="c1"></span><span class="p">}</span>
+<span class="kd">type</span> <span class="nx">cache</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">defaultExpiration</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Duration</span>
+	<span class="nx">items</span>             <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="nx">Item</span>
+	<span class="nx">mu</span>                <span class="nx">sync</span><span class="p">.</span><span class="nx">RWMutex</span>
+	<span class="nx">onEvicted</span>         <span class="kd">func</span><span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="kd">interface</span><span class="p">{})</span>
+	<span class="nx">janitor</span>           <span class="o">*</span><span class="nx">janitor</span>
+<span class="p">}</span></code></pre></div>
+<p>库中导出方法，具体使用可以参看项目<code>README</code>和<code>cache_test.go</code>文件：</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">cache</span><span class="p">)</span> <span class="nx">Set</span><span class="p">(</span><span class="nx">k</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">x</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">d</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Duration</span><span class="p">)</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">cache</span><span class="p">)</span> <span class="nx">SetDefault</span><span class="p">(</span><span class="nx">k</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">x</span> <span class="kd">interface</span><span class="p">{})</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">cache</span><span class="p">)</span> <span class="nx">Add</span><span class="p">(</span><span class="nx">k</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">x</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">d</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Duration</span><span class="p">)</span> <span class="kt">error</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">cache</span><span class="p">)</span> <span class="nx">Replace</span><span class="p">(</span><span class="nx">k</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">x</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">d</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Duration</span><span class="p">)</span> <span class="kt">error</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">cache</span><span class="p">)</span> <span class="nx">Get</span><span class="p">(</span><span class="nx">k</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="kd">interface</span><span class="p">{},</span> <span class="kt">bool</span><span class="p">)</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">cache</span><span class="p">)</span> <span class="nx">GetWithExpiration</span><span class="p">(</span><span class="nx">k</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="kd">interface</span><span class="p">{},</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span><span class="p">,</span> <span class="kt">bool</span><span class="p">)</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">cache</span><span class="p">)</span> <span class="nx">Increment</span><span class="p">(</span><span class="nx">k</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">n</span> <span class="kt">int64</span><span class="p">)</span> <span class="kt">error</span>
+<span class="o">...</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">cache</span><span class="p">)</span> <span class="nx">Decrement</span><span class="p">(</span><span class="nx">k</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">n</span> <span class="kt">int64</span><span class="p">)</span> <span class="kt">error</span>
+<span class="o">...</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">cache</span><span class="p">)</span> <span class="nx">Delete</span><span class="p">(</span><span class="nx">k</span> <span class="kt">string</span><span class="p">)</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">cache</span><span class="p">)</span> <span class="nx">DeleteExpired</span><span class="p">()</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">cache</span><span class="p">)</span> <span class="nx">OnEvicted</span><span class="p">(</span><span class="nx">f</span> <span class="kd">func</span><span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="kd">interface</span><span class="p">{}))</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">cache</span><span class="p">)</span> <span class="nx">Save</span><span class="p">(</span><span class="nx">w</span> <span class="nx">io</span><span class="p">.</span><span class="nx">Writer</span><span class="p">)</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">cache</span><span class="p">)</span> <span class="nx">SaveFile</span><span class="p">(</span><span class="nx">fname</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">error</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">cache</span><span class="p">)</span> <span class="nx">Load</span><span class="p">(</span><span class="nx">r</span> <span class="nx">io</span><span class="p">.</span><span class="nx">Reader</span><span class="p">)</span> <span class="kt">error</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">cache</span><span class="p">)</span> <span class="nx">LoadFile</span><span class="p">(</span><span class="nx">fname</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">error</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">cache</span><span class="p">)</span> <span class="nx">Items</span><span class="p">()</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="nx">Item</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">cache</span><span class="p">)</span> <span class="nx">ItemCount</span><span class="p">()</span> <span class="kt">int</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">cache</span><span class="p">)</span> <span class="nx">Flush</span><span class="p">()</span>
+<span class="kd">func</span> <span class="nx">New</span><span class="p">(</span><span class="nx">defaultExpiration</span><span class="p">,</span> <span class="nx">cleanupInterval</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Duration</span><span class="p">)</span> <span class="o">*</span><span class="nx">Cache</span>
+<span class="kd">func</span> <span class="nx">NewFrom</span><span class="p">(</span><span class="nx">defaultExpiration</span><span class="p">,</span> <span class="nx">cleanupInterval</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Duration</span><span class="p">,</span> <span class="nx">items</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="nx">Item</span><span class="p">)</span> <span class="o">*</span><span class="nx">Cache</span></code></pre></div>
+<p>代码中有许多可以学到技巧的地方。
+如缓存的自动清理：</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="p">(</span><span class="nx">j</span> <span class="o">*</span><span class="nx">janitor</span><span class="p">)</span> <span class="nx">Run</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">cache</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">ticker</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nx">NewTicker</span><span class="p">(</span><span class="nx">j</span><span class="p">.</span><span class="nx">Interval</span><span class="p">)</span>
+	<span class="k">for</span> <span class="p">{</span>
+		<span class="k">select</span> <span class="p">{</span>
+		<span class="k">case</span> <span class="o">&lt;-</span><span class="nx">ticker</span><span class="p">.</span><span class="nx">C</span><span class="p">:</span>
+			<span class="nx">c</span><span class="p">.</span><span class="nx">DeleteExpired</span><span class="p">()</span>
+		<span class="k">case</span> <span class="o">&lt;-</span><span class="nx">j</span><span class="p">.</span><span class="nx">stop</span><span class="p">:</span>
+			<span class="nx">ticker</span><span class="p">.</span><span class="nx">Stop</span><span class="p">()</span>
+			<span class="k">return</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+<span class="p">}</span></code></pre></div>
+<p>对<code>GC</code>的考虑：</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nx">newCacheWithJanitor</span><span class="p">(</span><span class="nx">de</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Duration</span><span class="p">,</span> <span class="nx">ci</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Duration</span><span class="p">,</span> <span class="nx">m</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="nx">Item</span><span class="p">)</span> <span class="o">*</span><span class="nx">Cache</span> <span class="p">{</span>
+	<span class="nx">c</span> <span class="o">:=</span> <span class="nx">newCache</span><span class="p">(</span><span class="nx">de</span><span class="p">,</span> <span class="nx">m</span><span class="p">)</span>
+	<span class="c1">// This trick ensures that the janitor goroutine (which--granted it
+</span><span class="c1"></span>	<span class="c1">// was enabled--is running DeleteExpired on c forever) does not keep
+</span><span class="c1"></span>	<span class="c1">// the returned C object from being garbage collected. When it is
+</span><span class="c1"></span>	<span class="c1">// garbage collected, the finalizer stops the janitor goroutine, after
+</span><span class="c1"></span>	<span class="c1">// which c can be collected.
+</span><span class="c1"></span>	<span class="nx">C</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">Cache</span><span class="p">{</span><span class="nx">c</span><span class="p">}</span>
+	<span class="k">if</span> <span class="nx">ci</span> <span class="p">&gt;</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="nx">runJanitor</span><span class="p">(</span><span class="nx">c</span><span class="p">,</span> <span class="nx">ci</span><span class="p">)</span>
+		<span class="nx">runtime</span><span class="p">.</span><span class="nx">SetFinalizer</span><span class="p">(</span><span class="nx">C</span><span class="p">,</span> <span class="nx">stopJanitor</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="nx">C</span>
+<span class="p">}</span></code></pre></div>
+<p>另外，库中原先提供了一个实验性的共享缓存，现在被单独放在一个文件里面，但暂时没有提供导出函数。看了代码，应该是去除读写排他锁控制，而采用哈希散列来处理不同请求的缓存，结构是<code>[]map[string]Item</code>，大家读写不在一个<code>map</code>里面，自然就不需要加锁了，这样用在某些场景，可以大大提高读写速度。</p>
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://semieye.github.io/post/2018/03/gin-contrib-cache/" data-toggle="tooltip" data-placement="top" title="Gin 源码学习（Gin Cache Middleware）">&larr; Previous Post</a>
+            </li>
+          
+          
+            <li class="next">
+              <a href="https://semieye.github.io/post/2018/03/awesome-go-projects/" data-toggle="tooltip" data-placement="top" title="Go开源项目（自己整理记录的）">Next Post &rarr;</a>
+            </li>
+          
+        </ul>
+      
+
+
+      
+
+    </div>
+  </div>
+</div>
+
+    <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="mailto:semieye@qq.com" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/semieye" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="https://semieye.github.io/">semieye</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;
+          2018
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://semieye.github.io/">Nothing lasts forever</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="http://gohugo.io">Hugo v0.37.1</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js" integrity="sha384-dq1/gEHSxPZQ7DdrM82ID4YVol9BYyU7GbWlIwnwyPzotpoc57wDw/guX8EaYGPx" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://semieye.github.io/js/main.js"></script><script> renderMathInElement(document.body); </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script>
+<script src="https://semieye.github.io/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+  </body>
+</html>
+
