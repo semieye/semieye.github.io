@@ -94,13 +94,13 @@
   </url>
   
   <url>
-    <loc>https://semieye.github.io/categories/cache/</loc>
+    <loc>https://semieye.github.io/tags/cache/</loc>
     <lastmod>2018-03-24T18:55:26+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://semieye.github.io/tags/cache/</loc>
+    <loc>https://semieye.github.io/categories/cache/</loc>
     <lastmod>2018-03-24T18:55:26+08:00</lastmod>
     <priority>0</priority>
   </url>
@@ -124,19 +124,13 @@
   </url>
   
   <url>
-    <loc>https://semieye.github.io/categories/gin/</loc>
-    <lastmod>2018-03-24T18:55:26+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://semieye.github.io/tags/gin/</loc>
     <lastmod>2018-03-24T18:55:26+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://semieye.github.io/categories/gin-middleware/</loc>
+    <loc>https://semieye.github.io/categories/gin/</loc>
     <lastmod>2018-03-24T18:55:26+08:00</lastmod>
     <priority>0</priority>
   </url>
@@ -148,14 +142,14 @@
   </url>
   
   <url>
-    <loc>https://semieye.github.io/tags/github/</loc>
-    <lastmod>2018-03-24T21:06:26+08:00</lastmod>
+    <loc>https://semieye.github.io/categories/gin-middleware/</loc>
+    <lastmod>2018-03-24T18:55:26+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://semieye.github.io/categories/go/</loc>
-    <lastmod>2018-03-24T18:55:26+08:00</lastmod>
+    <loc>https://semieye.github.io/tags/github/</loc>
+    <lastmod>2018-03-24T21:06:26+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -166,13 +160,19 @@
   </url>
   
   <url>
-    <loc>https://semieye.github.io/categories/limit/</loc>
-    <lastmod>2018-03-23T22:40:52+08:00</lastmod>
+    <loc>https://semieye.github.io/categories/go/</loc>
+    <lastmod>2018-03-24T18:55:26+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://semieye.github.io/tags/limit/</loc>
+    <lastmod>2018-03-23T22:40:52+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://semieye.github.io/categories/limit/</loc>
     <lastmod>2018-03-23T22:40:52+08:00</lastmod>
     <priority>0</priority>
   </url>
