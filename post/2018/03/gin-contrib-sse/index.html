@@ -5,21 +5,24 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <title>Gin Middleware</title>
-  <meta property="og:title" content="Gin Middleware" />
-  <meta name="twitter:title" content="Gin Middleware" />
+  <title>Gin 源码学习（Gin SSE Middleware）</title>
+  <meta property="og:title" content="Gin 源码学习（Gin SSE Middleware）" />
+  <meta name="twitter:title" content="Gin 源码学习（Gin SSE Middleware）" />
+  <meta name="description" content="记录一些值得学习的Go开源项目">
+  <meta property="og:description" content="记录一些值得学习的Go开源项目">
+  <meta name="twitter:description" content="记录一些值得学习的Go开源项目">
   <meta name="author" content="semieye"/>
   <link href='https://semieye.github.io/img/favicon.ico' rel='icon' type='image/x-icon'/>
   <meta property="og:image" content="https://semieye.github.io/img/avatar-icon.png" />
   <meta name="twitter:image" content="https://semieye.github.io/img/avatar-icon.png" />
   <meta name="twitter:card" content="summary" />
-  <meta property="og:url" content="https://semieye.github.io/categories/gin-middleware/" />
+  <meta property="og:url" content="https://semieye.github.io/post/2018/03/gin-contrib-sse/" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Nothing lasts forever" />
 
   <meta name="generator" content="Hugo 0.37.1" />
-  <link rel="canonical" href="https://semieye.github.io/categories/gin-middleware/" />
-  <link rel="alternate" href="https://semieye.github.io/categories/gin-middleware/index.xml" type="application/rss+xml" title="Nothing lasts forever">
+  <link rel="canonical" href="https://semieye.github.io/post/2018/03/gin-contrib-sse/" />
+  <link rel="alternate" href="https://semieye.github.io/index.xml" type="application/rss+xml" title="Nothing lasts forever">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -144,14 +147,44 @@
 
 
     
+  
+  
+  
+
+
+
+
+  
+
   <header class="header-section ">
+    
     <div class="intro-header no-img">
+      
       <div class="container">
         <div class="row">
           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <div class="page-heading">
-              <h2>#Gin Middleware</h2>
-              <hr class="small">
+            <div class="post-heading">
+              <h2>Gin 源码学习（Gin SSE Middleware）</h2>
+                
+                  
+                    <h2 class="post-subheading">Gin SSE Middleware</h2>
+                  
+                
+                
+                  <span class="post-meta">
+  
+  
+  <i class="fa fa-calendar-o"></i>&nbsp;Posted on Mon, 26 Mar 2018 10:14:26 CST
+  
+  &nbsp;|&nbsp;
+  <i class="fa fa-clock-o"></i> 2 minutes (642 words)
+  
+  
+  
+</span>
+
+
+                
             </div>
           </div>
         </div>
@@ -159,39 +192,13 @@
     </div>
   </header>
 
+
     
-  <div class="container" role="main">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        
-        <div class="posts-list">
-          
-            <article class="post-preview">
-              <a href="https://semieye.github.io/post/2018/03/gin-contrib-sse/">
-                <h2 class="post-title">Gin 源码学习（Gin SSE Middleware）</h2>
-
-                
-                  <h3 class="post-subtitle">
-                    Gin SSE Middleware
-                  </h3>
-                
-              </a>
-
-              <p class="post-meta">
-                <i class="fa fa-calendar-o"></i>&nbsp;Posted on Mon, 26 Mar 2018 10:14:26 CST
-
-  
-  &nbsp;|&nbsp;
-  <i class="fa fa-clock-o"></i> 2 minutes (642 words)
-  
-
-  
-  
-  
-              </p>
-              <div class="post-entry">
-                
-                  <p><a href="https://github.com/gin-contrib/sse">https://github.com/gin-contrib/sse</a> Server-Send Events</p>
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <p><a href="https://github.com/gin-contrib/sse">https://github.com/gin-contrib/sse</a> Server-Send Events</p>
 
 <p>这个项目是Server-Send Events协议的Go语言实现，有关Server-Send Events的知识，可以参看这几个链接：<a href="https://www.html5rocks.com/en/tutorials/eventsource/basics/">谷歌HTML5项目网站一篇精彩介绍</a> 和 <a href="http://www.ruanyifeng.com/blog/2017/05/server-sent_events.html">阮一峰的中文教程</a> ，这是HTML5的一个技术规范，用于服务器向浏览器单向推送消息，相对于Websocket协议，更简单和轻量化。</p>
 
@@ -208,155 +215,90 @@
 	<span class="p">})</span>
 <span class="p">}</span></code></pre></div>
 <p></p>
-                  <a href="https://semieye.github.io/post/2018/03/gin-contrib-sse/" class="post-read-more">[Read More]</a>
-                
-              </div>
 
-              
-                <span class="post-meta">
-                  
-                    #<a href="https://semieye.github.io//tags/go/">Go</a>&nbsp;
-                  
-                    #<a href="https://semieye.github.io//tags/gin/">Gin</a>&nbsp;
-                  
-                    #<a href="https://semieye.github.io//tags/gin-middleware/">Gin Middleware</a>&nbsp;
-                  
-                    #<a href="https://semieye.github.io//tags/sse/">SSE</a>&nbsp;
-                  
-                </span>
-              
+<p>这个返回结构就是gin-contrib/sse库中定义的，并且实现了Render接口的两个方法。</p>
 
-            </article>
-          
-            <article class="post-preview">
-              <a href="https://semieye.github.io/post/2018/03/gin-contrib-cache/">
-                <h2 class="post-title">Gin 源码学习（Gin Cache Middleware）</h2>
+<blockquote>
+<p>Gin中Render接口定义：</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">Render</span> <span class="kd">interface</span> <span class="p">{</span>
+	<span class="nx">Render</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">)</span> <span class="kt">error</span>
+	<span class="nx">WriteContentType</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">)</span>
+<span class="p">}</span></code></pre></div>
+<blockquote>
+<p>sse中Event结构定义：</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">Event</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">Event</span> <span class="kt">string</span>
+	<span class="nx">Id</span>    <span class="kt">string</span>
+	<span class="nx">Retry</span> <span class="kt">uint</span>
+	<span class="nx">Data</span>  <span class="kd">interface</span><span class="p">{}</span>
+<span class="p">}</span></code></pre></div>
+<blockquote>
+<p>sse中Event实现Render接口：</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="p">(</span><span class="nx">r</span> <span class="nx">Event</span><span class="p">)</span> <span class="nx">Render</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+	<span class="nx">r</span><span class="p">.</span><span class="nx">WriteContentType</span><span class="p">(</span><span class="nx">w</span><span class="p">)</span>
+	<span class="k">return</span> <span class="nx">Encode</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span>
+<span class="p">}</span>
 
-                
-                  <h3 class="post-subtitle">
-                    Gin Cache Middleware
-                  </h3>
-                
-              </a>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">r</span> <span class="nx">Event</span><span class="p">)</span> <span class="nx">WriteContentType</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">header</span> <span class="o">:=</span> <span class="nx">w</span><span class="p">.</span><span class="nx">Header</span><span class="p">()</span>
+	<span class="nx">header</span><span class="p">[</span><span class="s">&#34;Content-Type&#34;</span><span class="p">]</span> <span class="p">=</span> <span class="nx">contentType</span>
 
-              <p class="post-meta">
-                <i class="fa fa-calendar-o"></i>&nbsp;Posted on Sat, 24 Mar 2018 18:55:26 CST
-
-  
-  &nbsp;|&nbsp;
-  <i class="fa fa-clock-o"></i> 2 minutes (831 words)
-  
-
-  
-  
-  
-              </p>
-              <div class="post-entry">
-                
-                  <p><a href="https://github.com/gin-contrib/cache">https://github.com/gin-contrib/cache</a> 缓存</p>
-
-<!--网易云音乐   <iframe style="max-width: 100%"
-      class="music163"
-      frameborder="no"
-      border="0"
-      marginwidth="0"
-      marginheight="0"
-      width="330"
-      height="86"
-      src="//music.163.com/outchain/player?type=2&id=28196554&auto=0&height=66">
-    </iframe>-->
-
-<p>这个项目是Gin的一个Middleware，用于缓存请求结果，目前支持 <a href="https://github.com/robfig/go-cache"><u>go-cache</u></a> 内存缓存（ps：这个库最新的应该是这个地址：<a href="https://github.com/patrickmn/go-cache"><u>patrickmn/go-cache</u></a>）、<a href="https://github.com/bradfitz/gomemcache"><u>memcached</u></a> 缓存、<a href="https://github.com/garyburd/redigo/redis"><u>redis</u></a> 缓存三种类型。这三个库以后再阅读学习，今天先完成这个项目的学习。缓存用的key采用<code>urlEscape</code>函数生成，规则为：前缀+冒号+URL(或其MD5)。</p>
-
-<p>示例中仅仅给了一个<code>CachePage</code>的用法：</p>
-<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go">	<span class="nx">r</span><span class="p">.</span><span class="nx">GET</span><span class="p">(</span><span class="s">&#34;/cache_ping&#34;</span><span class="p">,</span> <span class="nx">cache</span><span class="p">.</span><span class="nx">CachePage</span><span class="p">(</span><span class="nx">store</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Minute</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">gin</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>
-		<span class="nx">c</span><span class="p">.</span><span class="nx">String</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="s">&#34;pong &#34;</span><span class="o">+</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Sprint</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">().</span><span class="nx">Unix</span><span class="p">()))</span>
-	<span class="p">}))</span></code></pre></div>
-<p></p>
-                  <a href="https://semieye.github.io/post/2018/03/gin-contrib-cache/" class="post-read-more">[Read More]</a>
-                
-              </div>
-
-              
-                <span class="post-meta">
-                  
-                    #<a href="https://semieye.github.io//tags/go/">Go</a>&nbsp;
-                  
-                    #<a href="https://semieye.github.io//tags/gin/">Gin</a>&nbsp;
-                  
-                    #<a href="https://semieye.github.io//tags/gin-middleware/">Gin Middleware</a>&nbsp;
-                  
-                    #<a href="https://semieye.github.io//tags/cache/">Cache</a>&nbsp;
-                  
-                </span>
-              
-
-            </article>
-          
-            <article class="post-preview">
-              <a href="https://semieye.github.io/post/2018/03/gin-limit/">
-                <h2 class="post-title">Gin 源码学习（Gin Limit Middleware）</h2>
-
-                
-                  <h3 class="post-subtitle">
-                    Gin Limit Middleware
-                  </h3>
-                
-              </a>
-
-              <p class="post-meta">
-                <i class="fa fa-calendar-o"></i>&nbsp;Posted on Fri, 23 Mar 2018 22:40:52 CST
-
-  
-  &nbsp;|&nbsp;
-  <i class="fa fa-clock-o"></i> 1 minutes (366 words)
-  
-
-  
-  
-  
-              </p>
-              <div class="post-entry">
-                
-                  <p><a href="https://github.com/aviddiviner/gin-limit">https://github.com/aviddiviner/gin-limit</a> 请求限制</p>
-
-<p>代码超级简单呐，利用空结构体和缓冲为n的chan做连接限制，请看：</p>
-<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nx">MaxAllowed</span><span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="nx">gin</span><span class="p">.</span><span class="nx">HandlerFunc</span> <span class="p">{</span>
-	<span class="nx">sem</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kd">struct</span><span class="p">{},</span> <span class="nx">n</span><span class="p">)</span>
-	<span class="nx">acquire</span> <span class="o">:=</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span> <span class="nx">sem</span> <span class="o">&lt;-</span> <span class="kd">struct</span><span class="p">{}{}</span> <span class="p">}</span>
-	<span class="nx">release</span> <span class="o">:=</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span> <span class="o">&lt;-</span><span class="nx">sem</span> <span class="p">}</span>
-	<span class="k">return</span> <span class="kd">func</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">gin</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>
-		<span class="nx">acquire</span><span class="p">()</span> <span class="c1">// before request
-</span><span class="c1"></span>		<span class="k">defer</span> <span class="nx">release</span><span class="p">()</span> <span class="c1">// after request
-</span><span class="c1"></span>		<span class="nx">c</span><span class="p">.</span><span class="nx">Next</span><span class="p">()</span>
+	<span class="k">if</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">exist</span> <span class="o">:=</span> <span class="nx">header</span><span class="p">[</span><span class="s">&#34;Cache-Control&#34;</span><span class="p">];</span> <span class="p">!</span><span class="nx">exist</span> <span class="p">{</span>
+		<span class="nx">header</span><span class="p">[</span><span class="s">&#34;Cache-Control&#34;</span><span class="p">]</span> <span class="p">=</span> <span class="nx">noCache</span>
 	<span class="p">}</span>
 <span class="p">}</span></code></pre></div>
-<p></p>
-                  <a href="https://semieye.github.io/post/2018/03/gin-limit/" class="post-read-more">[Read More]</a>
-                
-              </div>
+<blockquote>
+<p>sse中实现SSE协议约定（可参看SSE的协议说明）：</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">const</span> <span class="nx">ContentType</span> <span class="p">=</span> <span class="s">&#34;text/event-stream&#34;</span>
 
-              
-                <span class="post-meta">
-                  
-                    #<a href="https://semieye.github.io//tags/go/">Go</a>&nbsp;
-                  
-                    #<a href="https://semieye.github.io//tags/gin/">Gin</a>&nbsp;
-                  
-                    #<a href="https://semieye.github.io//tags/gin-middleware/">Gin Middleware</a>&nbsp;
-                  
-                    #<a href="https://semieye.github.io//tags/limit/">Limit</a>&nbsp;
-                  
-                </span>
-              
+<span class="kd">var</span> <span class="nx">contentType</span> <span class="p">=</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="nx">ContentType</span><span class="p">}</span>
+<span class="kd">var</span> <span class="nx">noCache</span> <span class="p">=</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&#34;no-cache&#34;</span><span class="p">}</span>
 
-            </article>
+<span class="kd">var</span> <span class="nx">fieldReplacer</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">NewReplacer</span><span class="p">(</span>
+	<span class="s">&#34;\n&#34;</span><span class="p">,</span> <span class="s">&#34;\\n&#34;</span><span class="p">,</span>
+	<span class="s">&#34;\r&#34;</span><span class="p">,</span> <span class="s">&#34;\\r&#34;</span><span class="p">)</span>
+
+<span class="kd">var</span> <span class="nx">dataReplacer</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nx">NewReplacer</span><span class="p">(</span>
+	<span class="s">&#34;\n&#34;</span><span class="p">,</span> <span class="s">&#34;\ndata:&#34;</span><span class="p">,</span>
+	<span class="s">&#34;\r&#34;</span><span class="p">,</span> <span class="s">&#34;\\r&#34;</span><span class="p">)</span></code></pre></div>
+<blockquote>
+<p>sse中实现SSE协议约定（这几个函数可以看源码，按照SSE协议写数据）：</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nx">Encode</span><span class="p">(</span><span class="nx">writer</span> <span class="nx">io</span><span class="p">.</span><span class="nx">Writer</span><span class="p">,</span> <span class="nx">event</span> <span class="nx">Event</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+	<span class="nx">w</span> <span class="o">:=</span> <span class="nx">checkWriter</span><span class="p">(</span><span class="nx">writer</span><span class="p">)</span>
+	<span class="nx">writeId</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">event</span><span class="p">.</span><span class="nx">Id</span><span class="p">)</span>
+	<span class="nx">writeEvent</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">event</span><span class="p">.</span><span class="nx">Event</span><span class="p">)</span>
+	<span class="nx">writeRetry</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">event</span><span class="p">.</span><span class="nx">Retry</span><span class="p">)</span>
+	<span class="k">return</span> <span class="nx">writeData</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">event</span><span class="p">.</span><span class="nx">Data</span><span class="p">)</span>
+<span class="p">}</span></code></pre></div>
+<p>sse库中还有一个<code>sse-deco</code> ，貌似在Gin里面没用上，因为SSE协议是服务器向浏览器单向推送，单工通道，目前应该用不上解码数据吧。</p>
+      </article>
+
+      
+        <ul class="pager blog-pager">
           
-        </div>
-        
-      </div>
+            <li class="previous">
+              <a href="https://semieye.github.io/post/2018/03/go-cache/" data-toggle="tooltip" data-placement="top" title="Go 源码学习（ go-cache ）">&larr; Previous Post</a>
+            </li>
+          
+          
+            <li class="next">
+              <a href="https://semieye.github.io/post/2018/03/awesome-go-projects/" data-toggle="tooltip" data-placement="top" title="Go开源项目（自己整理记录的）">Next Post &rarr;</a>
+            </li>
+          
+        </ul>
+      
+
+
+      
+
     </div>
   </div>
+</div>
 
     <footer>
   <div class="container">

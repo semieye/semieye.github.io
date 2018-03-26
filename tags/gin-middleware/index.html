@@ -167,6 +167,68 @@
         <div class="posts-list">
           
             <article class="post-preview">
+              <a href="https://semieye.github.io/post/2018/03/gin-contrib-sse/">
+                <h2 class="post-title">Gin 源码学习（Gin SSE Middleware）</h2>
+
+                
+                  <h3 class="post-subtitle">
+                    Gin SSE Middleware
+                  </h3>
+                
+              </a>
+
+              <p class="post-meta">
+                <i class="fa fa-calendar-o"></i>&nbsp;Posted on Mon, 26 Mar 2018 10:14:26 CST
+
+  
+  &nbsp;|&nbsp;
+  <i class="fa fa-clock-o"></i> 2 minutes (642 words)
+  
+
+  
+  
+  
+              </p>
+              <div class="post-entry">
+                
+                  <p><a href="https://github.com/gin-contrib/sse">https://github.com/gin-contrib/sse</a> Server-Send Events</p>
+
+<p>这个项目是Server-Send Events协议的Go语言实现，有关Server-Send Events的知识，可以参看这几个链接：<a href="https://www.html5rocks.com/en/tutorials/eventsource/basics/">谷歌HTML5项目网站一篇精彩介绍</a> 和 <a href="http://www.ruanyifeng.com/blog/2017/05/server-sent_events.html">阮一峰的中文教程</a> ，这是HTML5的一个技术规范，用于服务器向浏览器单向推送消息，相对于Websocket协议，更简单和轻量化。</p>
+
+<p>这个项目被用在了Gin框架之中，用来实现Gin对SSE的支持（<code>c.SSEvent()</code>）。具体可以参看Gin框架源码中<a href="https://github.com/gin-gonic/gin/tree/master/examples/realtime-advanced">实时聊天高级示例</a> 的代码。</p>
+
+<p>下面简单分析和记录一下这个库的工作原理。</p>
+
+<p>Gin中提供了一个方法，支持返回<code>SSEvent</code>数据，返回的是一个<code>sse.Event</code>：</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// SSEvent writes a Server-Sent Event into the body stream.
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">Context</span><span class="p">)</span> <span class="nx">SSEvent</span><span class="p">(</span><span class="nx">name</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">message</span> <span class="kd">interface</span><span class="p">{})</span> <span class="p">{</span>
+	<span class="nx">c</span><span class="p">.</span><span class="nx">Render</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nx">sse</span><span class="p">.</span><span class="nx">Event</span><span class="p">{</span>
+		<span class="nx">Event</span><span class="p">:</span> <span class="nx">name</span><span class="p">,</span>
+		<span class="nx">Data</span><span class="p">:</span>  <span class="nx">message</span><span class="p">,</span>
+	<span class="p">})</span>
+<span class="p">}</span></code></pre></div>
+<p></p>
+                  <a href="https://semieye.github.io/post/2018/03/gin-contrib-sse/" class="post-read-more">[Read More]</a>
+                
+              </div>
+
+              
+                <span class="post-meta">
+                  
+                    #<a href="https://semieye.github.io//tags/go/">Go</a>&nbsp;
+                  
+                    #<a href="https://semieye.github.io//tags/gin/">Gin</a>&nbsp;
+                  
+                    #<a href="https://semieye.github.io//tags/gin-middleware/">Gin Middleware</a>&nbsp;
+                  
+                    #<a href="https://semieye.github.io//tags/sse/">SSE</a>&nbsp;
+                  
+                </span>
+              
+
+            </article>
+          
+            <article class="post-preview">
               <a href="https://semieye.github.io/post/2018/03/gin-contrib-cache/">
                 <h2 class="post-title">Gin 源码学习（Gin Cache Middleware）</h2>
 
