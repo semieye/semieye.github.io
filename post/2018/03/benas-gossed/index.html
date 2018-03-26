@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>Go 源码学习（ gossed ）</title>
+  <meta property="og:title" content="Go 源码学习（ gossed ）" />
+  <meta name="twitter:title" content="Go 源码学习（ gossed ）" />
+  <meta name="description" content="记录一些值得学习的Go开源项目">
+  <meta property="og:description" content="记录一些值得学习的Go开源项目">
+  <meta name="twitter:description" content="记录一些值得学习的Go开源项目">
+  <meta name="author" content="semieye"/>
+  <link href='https://semieye.github.io/img/favicon.ico' rel='icon' type='image/x-icon'/>
+  <meta property="og:image" content="https://semieye.github.io/img/avatar-icon.png" />
+  <meta name="twitter:image" content="https://semieye.github.io/img/avatar-icon.png" />
+  <meta name="twitter:card" content="summary" />
+  <meta property="og:url" content="https://semieye.github.io/post/2018/03/benas-gossed/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Nothing lasts forever" />
+
+  <meta name="generator" content="Hugo 0.37.1" />
+  <link rel="canonical" href="https://semieye.github.io/post/2018/03/benas-gossed/" />
+  <link rel="alternate" href="https://semieye.github.io/index.xml" type="application/rss+xml" title="Nothing lasts forever">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://semieye.github.io/css/main.css" />
+  <link rel="stylesheet" href="https://fonts.loli.net/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.loli.net/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="https://semieye.github.io/css/syntax.css" /><link rel="stylesheet" href="https://semieye.github.io/css/codeblock.css" />
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+</head>
+
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://semieye.github.io/">Nothing lasts forever</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Blog" href="/post">Blog</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="About" href="/about">About</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Tags" href="/tags">Tags</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Categories" href="/categories">Categories</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    <div class="avatar-container">
+      <div class="avatar-img-border">
+        
+          <a title="Nothing lasts forever" href="https://semieye.github.io/">
+            <img class="avatar-img" src="https://semieye.github.io/img/avatar-icon.png" alt="Nothing lasts forever" />
+          </a>
+        
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+
+
+    
+  
+  
+  
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              <h2>Go 源码学习（ gossed ）</h2>
+                
+                  
+                    <h2 class="post-subheading">benas-gossed</h2>
+                  
+                
+                
+                  <span class="post-meta">
+  
+  
+  <i class="fa fa-calendar-o"></i>&nbsp;Posted on Mon, 26 Mar 2018 15:09:26 CST
+  
+  &nbsp;|&nbsp;
+  <i class="fa fa-clock-o"></i> 2 minutes (747 words)
+  
+  
+  
+</span>
+
+
+                
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <p>上次说到Gin框架中有<code>Server-Send Events</code>的实现，这次针对SSE又进一步做了些研究，涉及到两个项目：</p>
+
+<p><strong><a href="https://github.com/benas/gossed">https://github.com/benas/gossed</a></strong>
+这个项目是利用下面<code>go-sse</code> 来实现将标准输入数据转发给浏览器，这是个有趣的项目，可以用浏览器来实时监控某些你想要监控的数据。:)</p>
+
+<p><strong><a href="https://github.com/alexandrevicenzi/go-sse">https://github.com/alexandrevicenzi/go-sse</a></strong> 这个项目也是一个Go语言实现SSE的库，按照README里面的说明：支持多通道隔离，广播，自定义headers，支持<code>Last-Event-ID</code>，遵循<a href="https://html.spec.whatwg.org/multipage/server-sent-events.html"><strong>SSE规范</strong></a>。</p>
+
+<p></p>
+
+<p><code>gossed</code>用来做系统监控还真是不错的，看看项目自带的<code>system-stats</code> 的示例截图，仅仅是几句脚本就可以将系统运行数据动态展示，简单好用。
+<img src="https://raw.githubusercontent.com/benas/ssed/master/examples/system-stats/screenshot.png" alt="" /></p>
+
+<p>脚本复制一下，以后说不定用上。<code>system-stats.sh</code> 的内容：</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="cp">#!/usr/bin/env bash
+</span><span class="cp"></span>
+<span class="nv">CPU</span><span class="o">=</span><span class="k">$(</span>top -l <span class="m">1</span> <span class="p">|</span> grep <span class="s2">&#34;CPU usage&#34;</span> <span class="p">|</span> awk <span class="s1">&#39;{print $3}&#39;</span> <span class="p">|</span> tr <span class="s1">&#39;%&#39;</span> <span class="s1">&#39; &#39;</span><span class="k">)</span>
+<span class="nv">MEMORY</span><span class="o">=</span><span class="k">$(</span>top -l <span class="m">1</span> <span class="p">|</span> grep <span class="s2">&#34;PhysMem&#34;</span> <span class="p">|</span> awk <span class="s1">&#39;{print $2}&#39;</span> <span class="p">|</span> tr <span class="s1">&#39;M&#39;</span> <span class="s1">&#39; &#39;</span><span class="k">)</span>
+<span class="nv">PROCESSES</span><span class="o">=</span><span class="k">$(</span>top -l <span class="m">1</span> <span class="p">|</span> grep <span class="s2">&#34;Processes&#34;</span> <span class="p">|</span> awk <span class="s1">&#39;{print $2}&#39;</span><span class="k">)</span>
+<span class="nv">THREADS</span><span class="o">=</span><span class="k">$(</span>top -l <span class="m">1</span> <span class="p">|</span> grep <span class="s2">&#34;Processes&#34;</span> <span class="p">|</span> awk <span class="s1">&#39;{print $10}&#39;</span><span class="k">)</span>
+
+<span class="nb">echo</span> <span class="s2">&#34;{\&#34;cpu\&#34;: \&#34;</span><span class="nv">$CPU</span><span class="s2">\&#34;, \&#34;memory\&#34;: \&#34;</span><span class="nv">$MEMORY</span><span class="s2">\&#34;, \&#34;processes\&#34;: \&#34;</span><span class="nv">$PROCESSES</span><span class="s2">\&#34;, \&#34;threads\&#34;: \&#34;</span><span class="nv">$THREADS</span><span class="s2">\&#34;}&#34;</span><span class="p">;</span></code></pre></div>
+<p>循环执行并用管道传递给<code>gossed</code> 程序：</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">$&gt; <span class="k">while</span> sleep <span class="m">1</span><span class="p">;</span> <span class="k">do</span> ./system-stats.sh<span class="p">;</span> <span class="k">done</span> <span class="p">|</span> gossed</code></pre></div>
+<p>这样你就可以在浏览器里面监控系统资源情况啦（使用示例中的html文件，如非本机则需要改下IP）。</p>
+
+<blockquote>
+<p>这个小工具的实现很简单，看下源码：（就是这么短，我甚至可以全部复制过来，不占什么篇幅，浏览一下也花不了多少时间。）</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;bufio&#34;</span>
+	<span class="s">&#34;flag&#34;</span>
+	<span class="s">&#34;log&#34;</span>
+	<span class="s">&#34;net/http&#34;</span>
+	<span class="s">&#34;os&#34;</span>
+	<span class="s">&#34;strconv&#34;</span>
+	<span class="s">&#34;io/ioutil&#34;</span>
+	<span class="s">&#34;fmt&#34;</span>
+
+	<span class="s">&#34;github.com/alexandrevicenzi/go-sse&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">log</span><span class="p">.</span><span class="nx">SetOutput</span><span class="p">(</span><span class="nx">ioutil</span><span class="p">.</span><span class="nx">Discard</span><span class="p">)</span>
+
+	<span class="nx">port</span> <span class="o">:=</span> <span class="nx">flag</span><span class="p">.</span><span class="nx">Int</span><span class="p">(</span><span class="s">&#34;port&#34;</span><span class="p">,</span> <span class="mi">3000</span><span class="p">,</span> <span class="s">&#34;port on which events will be sent&#34;</span><span class="p">)</span>
+	<span class="nx">flag</span><span class="p">.</span><span class="nx">Parse</span><span class="p">()</span>
+
+	<span class="nx">s</span> <span class="o">:=</span> <span class="nx">sse</span><span class="p">.</span><span class="nx">NewServer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">sse</span><span class="p">.</span><span class="nx">Options</span><span class="p">{</span>
+		<span class="nx">Headers</span><span class="p">:</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span>
+			<span class="s">&#34;Access-Control-Allow-Origin&#34;</span><span class="p">:</span>  <span class="s">&#34;*&#34;</span><span class="p">,</span>
+			<span class="s">&#34;Access-Control-Allow-Methods&#34;</span><span class="p">:</span> <span class="s">&#34;GET, OPTIONS&#34;</span><span class="p">,</span>
+			<span class="s">&#34;Access-Control-Allow-Headers&#34;</span><span class="p">:</span> <span class="s">&#34;Keep-Alive,X-Requested-With,Cache-Control,Content-Type,Last-Event-ID&#34;</span><span class="p">,</span>
+		<span class="p">},</span>
+	<span class="p">})</span>
+
+	<span class="k">defer</span> <span class="nx">s</span><span class="p">.</span><span class="nx">Shutdown</span><span class="p">()</span>
+
+	<span class="nx">http</span><span class="p">.</span><span class="nx">Handle</span><span class="p">(</span><span class="s">&#34;/&#34;</span><span class="p">,</span> <span class="nx">s</span><span class="p">)</span>
+
+	<span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+		<span class="nx">scanner</span> <span class="o">:=</span> <span class="nx">bufio</span><span class="p">.</span><span class="nx">NewScanner</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stdin</span><span class="p">)</span>
+		<span class="k">for</span> <span class="nx">scanner</span><span class="p">.</span><span class="nx">Scan</span><span class="p">()</span> <span class="p">{</span>
+			<span class="nx">s</span><span class="p">.</span><span class="nx">SendMessage</span><span class="p">(</span><span class="s">&#34;/&#34;</span><span class="p">,</span> <span class="nx">sse</span><span class="p">.</span><span class="nx">SimpleMessage</span><span class="p">(</span><span class="nx">scanner</span><span class="p">.</span><span class="nx">Text</span><span class="p">()))</span>
+		<span class="p">}</span>
+	<span class="p">}()</span>
+
+	<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&#34;Listening on port: &#34;</span> <span class="o">+</span> <span class="nx">strconv</span><span class="p">.</span><span class="nx">Itoa</span><span class="p">(</span><span class="o">*</span><span class="nx">port</span><span class="p">))</span>
+	<span class="nx">http</span><span class="p">.</span><span class="nx">ListenAndServe</span><span class="p">(</span><span class="s">&#34;:&#34;</span><span class="o">+</span><span class="nx">strconv</span><span class="p">.</span><span class="nx">Itoa</span><span class="p">(</span><span class="o">*</span><span class="nx">port</span><span class="p">),</span> <span class="kc">nil</span><span class="p">)</span>
+<span class="p">}</span></code></pre></div>
+<p>核心就是<code>import</code>了<code>&quot;github.com/alexandrevicenzi/go-sse&quot;</code> 这个库。利用这个库，创建了一个<code>sse</code>的服务，监听在<code>3000</code>端口，访问<code>http</code> 的<code>/</code>目录就可以获取其转发的<code>os.Stdin</code> 标准输入数据。</p>
+
+<p><code>HTML</code> 文件中建立<code>EventSource</code> 事件监听示例：</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript">    <span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&#34;text/javascript&#34;</span><span class="o">&gt;</span>
+        <span class="kd">var</span> <span class="nx">source</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">EventSource</span><span class="p">(</span><span class="s2">&#34;http://localhost:3000/&#34;</span><span class="p">);</span>
+        <span class="nx">source</span><span class="p">.</span><span class="nx">onmessage</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">content</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;content&#39;</span><span class="p">);</span>
+            <span class="nx">content</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">content</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">+</span> <span class="nx">event</span><span class="p">.</span><span class="nx">data</span> <span class="o">+</span> <span class="s1">&#39;&lt;br/&gt;&#39;</span><span class="p">;</span>
+        <span class="p">};</span>
+    <span class="o">&lt;</span><span class="err">/script&gt;</span>
+</code></pre></div>
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://semieye.github.io/post/2018/03/gin-contrib-sse/" data-toggle="tooltip" data-placement="top" title="Gin 源码学习（Gin SSE Middleware）">&larr; Previous Post</a>
+            </li>
+          
+          
+            <li class="next">
+              <a href="https://semieye.github.io/post/2018/03/awesome-go-projects/" data-toggle="tooltip" data-placement="top" title="Go开源项目（自己整理记录的）">Next Post &rarr;</a>
+            </li>
+          
+        </ul>
+      
+
+
+      
+
+    </div>
+  </div>
+</div>
+
+    <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="mailto:semieye@qq.com" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/semieye" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="https://semieye.github.io/">semieye</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;
+          2018
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://semieye.github.io/">Nothing lasts forever</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="http://gohugo.io">Hugo v0.37.1</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js" integrity="sha384-dq1/gEHSxPZQ7DdrM82ID4YVol9BYyU7GbWlIwnwyPzotpoc57wDw/guX8EaYGPx" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://semieye.github.io/js/main.js"></script><script> renderMathInElement(document.body); </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script>
+<script src="https://semieye.github.io/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+  </body>
+</html>
+

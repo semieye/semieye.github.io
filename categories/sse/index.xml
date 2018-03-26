@@ -8,10 +8,26 @@
     <language>zh-CN</language>
     <managingEditor>semieye@qq.com (semieye)</managingEditor>
     <webMaster>semieye@qq.com (semieye)</webMaster>
-    <lastBuildDate>Mon, 26 Mar 2018 10:14:26 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 26 Mar 2018 15:09:26 +0800</lastBuildDate>
     
 	<atom:link href="https://semieye.github.io/categories/sse/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Go 源码学习（ gossed ）</title>
+      <link>https://semieye.github.io/post/2018/03/benas-gossed/</link>
+      <pubDate>Mon, 26 Mar 2018 15:09:26 +0800</pubDate>
+      <author>semieye@qq.com (semieye)</author>
+      <guid>https://semieye.github.io/post/2018/03/benas-gossed/</guid>
+      <description>&lt;p&gt;上次说到Gin框架中有&lt;code&gt;Server-Send Events&lt;/code&gt;的实现，这次针对SSE又进一步做了些研究，涉及到两个项目：&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://github.com/benas/gossed&#34;&gt;https://github.com/benas/gossed&lt;/a&gt;&lt;/strong&gt;
+这个项目是利用下面&lt;code&gt;go-sse&lt;/code&gt; 来实现将标准输入数据转发给浏览器，这是个有趣的项目，可以用浏览器来实时监控某些你想要监控的数据。:)&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://github.com/alexandrevicenzi/go-sse&#34;&gt;https://github.com/alexandrevicenzi/go-sse&lt;/a&gt;&lt;/strong&gt; 这个项目也是一个Go语言实现SSE的库，按照README里面的说明：支持多通道隔离，广播，自定义headers，支持&lt;code&gt;Last-Event-ID&lt;/code&gt;，遵循&lt;a href=&#34;https://html.spec.whatwg.org/multipage/server-sent-events.html&#34;&gt;&lt;strong&gt;SSE规范&lt;/strong&gt;&lt;/a&gt;。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Gin 源码学习（Gin SSE Middleware）</title>
