@@ -21,7 +21,7 @@
       <guid>https://semieye.github.io/post/2018/03/gin-contrib-sse/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;https://github.com/gin-contrib/sse&#34;&gt;https://github.com/gin-contrib/sse&lt;/a&gt; Server-Send Events&lt;/p&gt;
 
-&lt;p&gt;这个项目是Server-Send Events协议的Go语言实现，有关Server-Send Events的知识，可以参看这几个链接：&lt;a href=&#34;https://www.html5rocks.com/en/tutorials/eventsource/basics/&#34;&gt;谷歌HTML5项目网站一篇精彩介绍&lt;/a&gt; 和 &lt;a href=&#34;http://www.ruanyifeng.com/blog/2017/05/server-sent_events.html&#34;&gt;阮一峰的中文教程&lt;/a&gt; ，这是HTML5的一个技术规范，用于服务器向浏览器单向推送消息，相对于Websocket协议，更简单和轻量化。&lt;/p&gt;
+&lt;p&gt;这个项目是&lt;code&gt;Server-Send Events&lt;/code&gt;协议的Go语言实现，有关&lt;code&gt;Server-Send Events&lt;/code&gt;的知识，可以参看这几个链接：&lt;a href=&#34;https://www.html5rocks.com/en/tutorials/eventsource/basics/&#34;&gt;谷歌HTML5项目网站一篇精彩介绍&lt;/a&gt; 和 &lt;a href=&#34;http://www.ruanyifeng.com/blog/2017/05/server-sent_events.html&#34;&gt;阮一峰的中文教程&lt;/a&gt; ，这是&lt;code&gt;HTML5&lt;/code&gt;的一个技术规范，用于服务器向浏览器单向推送消息，相对于&lt;code&gt;Websocket&lt;/code&gt;协议，更简单和轻量化。&lt;/p&gt;
 
 &lt;p&gt;这个项目被用在了Gin框架之中，用来实现Gin对SSE的支持（&lt;code&gt;c.SSEvent()&lt;/code&gt;）。具体可以参看Gin框架源码中&lt;a href=&#34;https://github.com/gin-gonic/gin/tree/master/examples/realtime-advanced&#34;&gt;实时聊天高级示例&lt;/a&gt; 的代码。&lt;/p&gt;
 
