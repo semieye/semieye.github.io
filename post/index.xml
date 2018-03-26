@@ -24,17 +24,39 @@
     </item>
     
     <item>
+      <title>Go 源码学习（ go-sse ）</title>
+      <link>https://semieye.github.io/post/2018/03/alexandrevicenzi-go-sse/</link>
+      <pubDate>Mon, 26 Mar 2018 16:29:26 +0800</pubDate>
+      <author>semieye@qq.com (semieye)</author>
+      <guid>https://semieye.github.io/post/2018/03/alexandrevicenzi-go-sse/</guid>
+      <description>&lt;p&gt;上次学习了&lt;code&gt;gossed&lt;/code&gt; 项目 &lt;strong&gt;&lt;a href=&#34;https://github.com/benas/gossed&#34;&gt;https://github.com/benas/gossed&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;再来学习一下它用到的核心开源库：&lt;strong&gt;&lt;a href=&#34;https://github.com/alexandrevicenzi/go-sse&#34;&gt;https://github.com/alexandrevicenzi/go-sse&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;这个项目也是一个Go语言实现SSE的库，按照README里面的说明：支持多通道隔离，广播，自定义&lt;code&gt;headers&lt;/code&gt;，支持&lt;code&gt;Last-Event-ID&lt;/code&gt;，遵循&lt;a href=&#34;https://html.spec.whatwg.org/multipage/server-sent-events.html&#34;&gt;&lt;strong&gt;SSE规范&lt;/strong&gt;&lt;/a&gt;。&lt;/p&gt;
+
+&lt;p&gt;这个库主要由三个核心源文件 &lt;code&gt;sse.go&lt;/code&gt;，&lt;code&gt;client.go&lt;/code&gt;，&lt;code&gt;channel.go&lt;/code&gt; 组成，分别完成相应功能，具体看一下代码。&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;client.go&lt;/code&gt; 中Client结构，收到http请求后创建：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;kd&#34;&gt;type&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;Client&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;nx&#34;&gt;lastEventId&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;nx&#34;&gt;channel&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt;
+    &lt;span class=&#34;nx&#34;&gt;send&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;chan&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Message&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>Go 源码学习（ gossed ）</title>
       <link>https://semieye.github.io/post/2018/03/benas-gossed/</link>
       <pubDate>Mon, 26 Mar 2018 15:09:26 +0800</pubDate>
       <author>semieye@qq.com (semieye)</author>
       <guid>https://semieye.github.io/post/2018/03/benas-gossed/</guid>
-      <description>&lt;p&gt;上次说到Gin框架中有&lt;code&gt;Server-Send Events&lt;/code&gt;的实现，这次针对SSE又进一步做了些研究，涉及到两个项目：&lt;/p&gt;
+      <description>&lt;p&gt;上次说到Gin框架中有&lt;code&gt;Server-Send Events&lt;/code&gt;的实现，这次针对SSE又进一步做了些研究，涉及到两个项目，分两篇学习。项目地址：&lt;strong&gt;&lt;a href=&#34;https://github.com/benas/gossed&#34;&gt;https://github.com/benas/gossed&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://github.com/benas/gossed&#34;&gt;https://github.com/benas/gossed&lt;/a&gt;&lt;/strong&gt;
-这个项目是利用下面&lt;code&gt;go-sse&lt;/code&gt; 来实现将标准输入数据转发给浏览器，这是个有趣的项目，可以用浏览器来实时监控某些你想要监控的数据。:)&lt;/p&gt;
+&lt;p&gt;这个项目是利用&lt;a href=&#34;https://github.com/alexandrevicenzi/go-sse&#34;&gt;&lt;strong&gt;alexandrevicenzi/go-sse&lt;/strong&gt;&lt;/a&gt; 项目来实现将标准输入数据转发给浏览器，这是个有趣的项目，可以用浏览器来实时监控某些你想要监控的数据。:)&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://github.com/alexandrevicenzi/go-sse&#34;&gt;https://github.com/alexandrevicenzi/go-sse&lt;/a&gt;&lt;/strong&gt; 这个项目也是一个Go语言实现SSE的库，按照README里面的说明：支持多通道隔离，广播，自定义headers，支持&lt;code&gt;Last-Event-ID&lt;/code&gt;，遵循&lt;a href=&#34;https://html.spec.whatwg.org/multipage/server-sent-events.html&#34;&gt;&lt;strong&gt;SSE规范&lt;/strong&gt;&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/benas/ssed/master/examples/system-stats/screenshot.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
     </item>

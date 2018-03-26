@@ -8,6 +8,11 @@
   </url>
   
   <url>
+    <loc>https://semieye.github.io/post/2018/03/alexandrevicenzi-go-sse/</loc>
+    <lastmod>2018-03-26T16:29:26+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://semieye.github.io/post/2018/03/benas-gossed/</loc>
     <lastmod>2018-03-26T15:09:26+08:00</lastmod>
   </url>
@@ -135,13 +140,13 @@
   
   <url>
     <loc>https://semieye.github.io/tags/sse/</loc>
-    <lastmod>2018-03-26T15:09:26+08:00</lastmod>
+    <lastmod>2018-03-26T16:29:26+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://semieye.github.io/categories/sse/</loc>
-    <lastmod>2018-03-26T15:09:26+08:00</lastmod>
+    <lastmod>2018-03-26T16:29:26+08:00</lastmod>
     <priority>0</priority>
   </url>
   

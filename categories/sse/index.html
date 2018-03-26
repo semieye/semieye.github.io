@@ -167,6 +167,62 @@
         <div class="posts-list">
           
             <article class="post-preview">
+              <a href="https://semieye.github.io/post/2018/03/alexandrevicenzi-go-sse/">
+                <h2 class="post-title">Go 源码学习（ go-sse ）</h2>
+
+                
+                  <h3 class="post-subtitle">
+                    alexandrevicenzi-go-sse
+                  </h3>
+                
+              </a>
+
+              <p class="post-meta">
+                <i class="fa fa-calendar-o"></i>&nbsp;Posted on Mon, 26 Mar 2018 16:29:26 CST
+
+  
+  &nbsp;|&nbsp;
+  <i class="fa fa-clock-o"></i> 3 minutes (1055 words)
+  
+
+  
+  
+  
+              </p>
+              <div class="post-entry">
+                
+                  <p>上次学习了<code>gossed</code> 项目 <strong><a href="https://github.com/benas/gossed">https://github.com/benas/gossed</a></strong></p>
+
+<p>再来学习一下它用到的核心开源库：<strong><a href="https://github.com/alexandrevicenzi/go-sse">https://github.com/alexandrevicenzi/go-sse</a></strong></p>
+
+<p>这个项目也是一个Go语言实现SSE的库，按照README里面的说明：支持多通道隔离，广播，自定义<code>headers</code>，支持<code>Last-Event-ID</code>，遵循<a href="https://html.spec.whatwg.org/multipage/server-sent-events.html"><strong>SSE规范</strong></a>。</p>
+
+<p>这个库主要由三个核心源文件 <code>sse.go</code>，<code>client.go</code>，<code>channel.go</code> 组成，分别完成相应功能，具体看一下代码。</p>
+
+<p><code>client.go</code> 中Client结构，收到http请求后创建：</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">Client</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">lastEventId</span><span class="p">,</span>
+    <span class="nx">channel</span> <span class="kt">string</span>
+    <span class="nx">send</span> <span class="kd">chan</span> <span class="o">*</span><span class="nx">Message</span>
+<span class="p">}</span></code></pre></div>
+<p></p>
+                  <a href="https://semieye.github.io/post/2018/03/alexandrevicenzi-go-sse/" class="post-read-more">[Read More]</a>
+                
+              </div>
+
+              
+                <span class="post-meta">
+                  
+                    #<a href="https://semieye.github.io//tags/go/">Go</a>&nbsp;
+                  
+                    #<a href="https://semieye.github.io//tags/sse/">SSE</a>&nbsp;
+                  
+                </span>
+              
+
+            </article>
+          
+            <article class="post-preview">
               <a href="https://semieye.github.io/post/2018/03/benas-gossed/">
                 <h2 class="post-title">Go 源码学习（ gossed ）</h2>
 
@@ -182,7 +238,7 @@
 
   
   &nbsp;|&nbsp;
-  <i class="fa fa-clock-o"></i> 2 minutes (747 words)
+  <i class="fa fa-clock-o"></i> 2 minutes (726 words)
   
 
   
@@ -191,12 +247,11 @@
               </p>
               <div class="post-entry">
                 
-                  <p>上次说到Gin框架中有<code>Server-Send Events</code>的实现，这次针对SSE又进一步做了些研究，涉及到两个项目：</p>
+                  <p>上次说到Gin框架中有<code>Server-Send Events</code>的实现，这次针对SSE又进一步做了些研究，涉及到两个项目，分两篇学习。项目地址：<strong><a href="https://github.com/benas/gossed">https://github.com/benas/gossed</a></strong></p>
 
-<p><strong><a href="https://github.com/benas/gossed">https://github.com/benas/gossed</a></strong>
-这个项目是利用下面<code>go-sse</code> 来实现将标准输入数据转发给浏览器，这是个有趣的项目，可以用浏览器来实时监控某些你想要监控的数据。:)</p>
+<p>这个项目是利用<a href="https://github.com/alexandrevicenzi/go-sse"><strong>alexandrevicenzi/go-sse</strong></a> 项目来实现将标准输入数据转发给浏览器，这是个有趣的项目，可以用浏览器来实时监控某些你想要监控的数据。:)</p>
 
-<p><strong><a href="https://github.com/alexandrevicenzi/go-sse">https://github.com/alexandrevicenzi/go-sse</a></strong> 这个项目也是一个Go语言实现SSE的库，按照README里面的说明：支持多通道隔离，广播，自定义headers，支持<code>Last-Event-ID</code>，遵循<a href="https://html.spec.whatwg.org/multipage/server-sent-events.html"><strong>SSE规范</strong></a>。</p>
+<p><img src="https://raw.githubusercontent.com/benas/ssed/master/examples/system-stats/screenshot.png" alt="" /></p>
 
 <p></p>
                   <a href="https://semieye.github.io/post/2018/03/benas-gossed/" class="post-read-more">[Read More]</a>
