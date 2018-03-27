@@ -177,7 +177,7 @@
   <i class="fa fa-calendar-o"></i>&nbsp;Posted on Tue, 27 Mar 2018 16:49:44 CST
   
   &nbsp;|&nbsp;
-  <i class="fa fa-clock-o"></i> 3 minutes (1265 words)
+  <i class="fa fa-clock-o"></i> 3 minutes (1266 words)
   
   
   
@@ -198,9 +198,8 @@
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
-        <p>开发项目中可能经常会使用到唯一标识符（<code>Unique Identifier</code>），特别是设计一些并发并行的应用系统，之前在Github上看到了一些生成算法库，在此做些学习记录，以备或需。</p>
-
-<p><br /></p>
+        <p>开发项目中可能经常会使用到唯一标识符（<code>Unique Identifier</code>），特别是设计一些并发并行的应用系统，之前在Github上看到了一些生成算法库，在此做些学习记录，以备或需。
+<br /></p>
 
 <h3 id="uuid">UUID</h3>
 
@@ -282,6 +281,12 @@
 <hr />
 
 <p>最后，看一个我比较喜欢的<code>UID</code>生成算法，它是最近才加入<code>CNCF</code>组织的<code>NATs</code>系列项目中使用到的一种唯一标识符算法库，生成速度极快，重复可能极其低。</p>
+
+<blockquote>
+<ul>
+<li><a href="https://github.com/nats-io/nuid">https://github.com/nats-io/nuid</a></li>
+</ul>
+</blockquote>
 
 <p>这个被命名为<code>NUID</code>的算法生成的是一个22字节的数字大小写字母字符串，因此生成范围可能性是62^22^，生成速度我老Mac笔记本大约是<code>60ns~80ns</code>左右一个。<code>2000万</code>只需一点几秒，真是极速爽啊。</p>
 
