@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>xUID 三种唯一ID生成</title>
+  <meta property="og:title" content="xUID 三种唯一ID生成" />
+  <meta name="twitter:title" content="xUID 三种唯一ID生成" />
+  <meta name="description" content="记录一些值得学习的Go开源项目">
+  <meta property="og:description" content="记录一些值得学习的Go开源项目">
+  <meta name="twitter:description" content="记录一些值得学习的Go开源项目">
+  <meta name="author" content="semieye"/>
+  <link href='https://semieye.github.io/img/favicon.ico' rel='icon' type='image/x-icon'/>
+  <meta property="og:image" content="https://semieye.github.io/img/avatar-icon.png" />
+  <meta name="twitter:image" content="https://semieye.github.io/img/avatar-icon.png" />
+  <meta name="twitter:card" content="summary" />
+  <meta property="og:url" content="https://semieye.github.io/post/2018/03/guid-uuid-nuid/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Nothing lasts forever" />
+
+  <meta name="generator" content="Hugo 0.37.1" />
+  <link rel="canonical" href="https://semieye.github.io/post/2018/03/guid-uuid-nuid/" />
+  <link rel="alternate" href="https://semieye.github.io/index.xml" type="application/rss+xml" title="Nothing lasts forever">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://semieye.github.io/css/main.css" />
+  <link rel="stylesheet" href="https://fonts.loli.net/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.loli.net/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="https://semieye.github.io/css/syntax.css" /><link rel="stylesheet" href="https://semieye.github.io/css/codeblock.css" />
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+</head>
+
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://semieye.github.io/">Nothing lasts forever</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Blog" href="/post">Blog</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="About" href="/about">About</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Tags" href="/tags">Tags</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Categories" href="/categories">Categories</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    <div class="avatar-container">
+      <div class="avatar-img-border">
+        
+          <a title="Nothing lasts forever" href="https://semieye.github.io/">
+            <img class="avatar-img" src="https://semieye.github.io/img/avatar-icon.png" alt="Nothing lasts forever" />
+          </a>
+        
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+
+
+    
+  
+  
+  
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              <h2>xUID 三种唯一ID生成</h2>
+                
+                  
+                    <h2 class="post-subheading">GUID-UUID-NUID</h2>
+                  
+                
+                
+                  <span class="post-meta">
+  
+  
+  <i class="fa fa-calendar-o"></i>&nbsp;Posted on Tue, 27 Mar 2018 16:49:44 CST
+  
+  &nbsp;|&nbsp;
+  <i class="fa fa-clock-o"></i> 3 minutes (1265 words)
+  
+  
+  
+</span>
+
+
+                
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <p>开发项目中可能经常会使用到唯一标识符（<code>Unique Identifier</code>），特别是设计一些并发并行的应用系统，之前在Github上看到了一些生成算法库，在此做些学习记录，以备或需。</p>
+
+<h4 id="uuid">UUID</h4>
+
+<hr />
+
+<p>第一种<code>UUID</code>，这个就不用多说了，很多语言标准库里面都提供了生成函数，Go的标准库里面没有，但是万能的开源社区提供了多个项目，用来实现符合<code>RFC4122</code>规范的<code>UUID</code>。</p>
+
+<blockquote>
+<p>我看了两个项目：</p>
+
+<ul>
+<li><p><a href="https://github.com/nu7hatch/gouuid">https://github.com/nu7hatch/gouuid</a></p></li>
+
+<li><p><a href="https://github.com/satori/go.uuid">https://github.com/satori/go.uuid</a></p></li>
+</ul>
+</blockquote>
+
+<p>
+前面那个提供了<code>NewV3</code>、<code>NewV4</code>、<code>NewV5</code>三个版本的<code>UUID</code>生成函数；后面那个提供了五种版本的<code>UUID</code>生成函数以及丰富的检验、序列化/反序列化、编码解码等函数，更有实用价值。关于<code>UUID</code>的<code>五种版本</code>规范，可以百度谷歌，这里提供 <a href="https://segmentfault.com/q/1010000010862121">SegmentFault上一个回答的链接</a> 。源码大致浏览了一下，根据不同版本选择一些参与计算的要素，例如：<code>时间</code>、<code>MAC地址</code>、<code>名字空间</code>、<code>MD5</code>、<code>SHA1</code>等，对RFC规范不熟悉，具体算法实现不仔细看了，需要的时候用就可以了。</p>
+
+<p><br /></p>
+
+<h4 id="snowflake">snowflake</h4>
+
+<hr />
+
+<p>这个算法是<code>Twitter</code>提出来并开源的，具体可以参见：<a href="https://github.com/twitter/snowflake/tree/snowflake-2010">https://github.com/twitter/snowflake/tree/snowflake-2010</a> 。Github上Go语言实现这个算法的项目也很多，我选择这个项目学习了一下：</p>
+
+<blockquote>
+<ul>
+<li><a href="https://github.com/zheng-ji/goSnowFlake">https://github.com/zheng-ji/goSnowFlake</a></li>
+</ul>
+</blockquote>
+
+<p>网上对这个算法的分析文章也很多，贴一篇不错的：<a href="https://segmentfault.com/a/1190000011282426"><a href="https://segmentfault.com/a/1190000011282426">理解分布式id生成算法SnowFlake</a></a> 。</p>
+
+<p>这个算法生成的<code>ID</code>是一个<code>64位整数</code>，原理是某个时间点（2^41^-1毫秒）、某台主机（<code>1024</code>个节点），按序列号（最大<code>4096</code>个）生成一个数。比如如果用作交易流水号，也就是说一毫秒内某台节点受理并发交易不超过<code>4096</code>笔，就不会有重复的可能，还是很强劲的。</p>
+
+<p>简单贴下实现的部分源码：</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">const</span> <span class="p">(</span>
+	<span class="nx">CEpoch</span>         <span class="p">=</span> <span class="mi">1474802888000</span>
+	<span class="nx">CWorkerIdBits</span>  <span class="p">=</span> <span class="mi">10</span> <span class="c1">// Num of WorkerId Bits
+</span><span class="c1"></span>	<span class="nx">CSenquenceBits</span> <span class="p">=</span> <span class="mi">12</span> <span class="c1">// Num of Sequence Bits
+</span><span class="c1"></span>
+	<span class="nx">CWorkerIdShift</span>  <span class="p">=</span> <span class="mi">12</span>
+	<span class="nx">CTimeStampShift</span> <span class="p">=</span> <span class="mi">22</span>
+
+	<span class="nx">CSequenceMask</span> <span class="p">=</span> <span class="mh">0xfff</span> <span class="c1">// equal as getSequenceMask()
+</span><span class="c1"></span>	<span class="nx">CMaxWorker</span>    <span class="p">=</span> <span class="mh">0x3ff</span> <span class="c1">// equal as getMaxWorkerId()
+</span><span class="c1"></span><span class="p">)</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// +---------------+----------------+----------------+
+</span><span class="c1">// |timestamp(ms)42  | worker id(10) | sequence(12)	 |
+</span><span class="c1">// +---------------+----------------+----------------+
+</span><span class="c1">// NewId Func: Generate next id
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">iw</span> <span class="o">*</span><span class="nx">IdWorker</span><span class="p">)</span> <span class="nx">NextId</span><span class="p">()</span> <span class="p">(</span><span class="nx">ts</span> <span class="kt">int64</span><span class="p">,</span> <span class="nx">err</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">iw</span><span class="p">.</span><span class="nx">lock</span><span class="p">.</span><span class="nx">Lock</span><span class="p">()</span>
+	<span class="k">defer</span> <span class="nx">iw</span><span class="p">.</span><span class="nx">lock</span><span class="p">.</span><span class="nx">Unlock</span><span class="p">()</span>
+	<span class="nx">ts</span> <span class="p">=</span> <span class="nx">iw</span><span class="p">.</span><span class="nx">timeGen</span><span class="p">()</span>
+	<span class="k">if</span> <span class="nx">ts</span> <span class="o">==</span> <span class="nx">iw</span><span class="p">.</span><span class="nx">lastTimeStamp</span> <span class="p">{</span>
+		<span class="nx">iw</span><span class="p">.</span><span class="nx">sequence</span> <span class="p">=</span> <span class="p">(</span><span class="nx">iw</span><span class="p">.</span><span class="nx">sequence</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="nx">CSequenceMask</span>
+		<span class="k">if</span> <span class="nx">iw</span><span class="p">.</span><span class="nx">sequence</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+			<span class="nx">ts</span> <span class="p">=</span> <span class="nx">iw</span><span class="p">.</span><span class="nx">timeReGen</span><span class="p">(</span><span class="nx">ts</span><span class="p">)</span>
+		<span class="p">}</span>
+	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+		<span class="nx">iw</span><span class="p">.</span><span class="nx">sequence</span> <span class="p">=</span> <span class="mi">0</span>
+	<span class="p">}</span>
+
+	<span class="k">if</span> <span class="nx">ts</span> <span class="p">&lt;</span> <span class="nx">iw</span><span class="p">.</span><span class="nx">lastTimeStamp</span> <span class="p">{</span>
+		<span class="nx">err</span> <span class="p">=</span> <span class="nx">errors</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&#34;Clock moved backwards, Refuse gen id&#34;</span><span class="p">)</span>
+		<span class="k">return</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">err</span>
+	<span class="p">}</span>
+	<span class="nx">iw</span><span class="p">.</span><span class="nx">lastTimeStamp</span> <span class="p">=</span> <span class="nx">ts</span>
+	<span class="nx">ts</span> <span class="p">=</span> <span class="p">(</span><span class="nx">ts</span><span class="o">-</span><span class="nx">CEpoch</span><span class="p">)</span><span class="o">&lt;&lt;</span><span class="nx">CTimeStampShift</span> <span class="p">|</span> <span class="nx">iw</span><span class="p">.</span><span class="nx">workerId</span><span class="o">&lt;&lt;</span><span class="nx">CWorkerIdShift</span> <span class="p">|</span> <span class="nx">iw</span><span class="p">.</span><span class="nx">sequence</span>
+	<span class="k">return</span> <span class="nx">ts</span><span class="p">,</span> <span class="kc">nil</span>
+<span class="p">}</span></code></pre></div>
+<p><br /></p>
+
+<h4 id="nuid">NUID</h4>
+
+<hr />
+
+<p>最后，看一个我比较喜欢的<code>UID</code>生成算法，它是最近才加入<code>CNCF</code>组织的<code>NATs</code>系列项目中使用到的一种唯一标识符算法库，生成速度极快，重复可能极其低。</p>
+
+<p>这个被命名为<code>NUID</code>的算法生成的是一个22字节的数字大小写字母字符串，因此生成范围可能性是62^22^，生成速度我老Mac笔记本大约是<code>60ns~80ns</code>左右一个。<code>2000万</code>只需一点几秒，真是极速爽啊。</p>
+
+<p>看一下算法规则和源码：</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">const</span> <span class="p">(</span>
+	<span class="nx">digits</span>   <span class="p">=</span> <span class="s">&#34;0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz&#34;</span>
+	<span class="nx">base</span>     <span class="p">=</span> <span class="mi">62</span>
+	<span class="nx">preLen</span>   <span class="p">=</span> <span class="mi">12</span>
+	<span class="nx">seqLen</span>   <span class="p">=</span> <span class="mi">10</span>
+	<span class="nx">maxSeq</span>   <span class="p">=</span> <span class="nb">int64</span><span class="p">(</span><span class="mi">839299365868340224</span><span class="p">)</span> <span class="c1">// base^seqLen == 62^10
+</span><span class="c1"></span>	<span class="nx">minInc</span>   <span class="p">=</span> <span class="nb">int64</span><span class="p">(</span><span class="mi">33</span><span class="p">)</span>
+	<span class="nx">maxInc</span>   <span class="p">=</span> <span class="nb">int64</span><span class="p">(</span><span class="mi">333</span><span class="p">)</span>
+	<span class="nx">totalLen</span> <span class="p">=</span> <span class="nx">preLen</span> <span class="o">+</span> <span class="nx">seqLen</span>
+<span class="p">)</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="p">(</span><span class="nx">n</span> <span class="o">*</span><span class="nx">NUID</span><span class="p">)</span> <span class="nx">Next</span><span class="p">()</span> <span class="kt">string</span> <span class="p">{</span>
+	<span class="c1">// Increment and capture.
+</span><span class="c1"></span>	<span class="nx">n</span><span class="p">.</span><span class="nx">seq</span> <span class="o">+=</span> <span class="nx">n</span><span class="p">.</span><span class="nx">inc</span>
+	<span class="k">if</span> <span class="nx">n</span><span class="p">.</span><span class="nx">seq</span> <span class="o">&gt;=</span> <span class="nx">maxSeq</span> <span class="p">{</span>
+		<span class="nx">n</span><span class="p">.</span><span class="nx">RandomizePrefix</span><span class="p">()</span>
+		<span class="nx">n</span><span class="p">.</span><span class="nx">resetSequential</span><span class="p">()</span>
+	<span class="p">}</span>
+	<span class="nx">seq</span> <span class="o">:=</span> <span class="nx">n</span><span class="p">.</span><span class="nx">seq</span>
+
+	<span class="c1">// Copy prefix
+</span><span class="c1"></span>	<span class="kd">var</span> <span class="nx">b</span> <span class="p">[</span><span class="nx">totalLen</span><span class="p">]</span><span class="kt">byte</span>
+	<span class="nx">bs</span> <span class="o">:=</span> <span class="nx">b</span><span class="p">[:</span><span class="nx">preLen</span><span class="p">]</span>
+	<span class="nb">copy</span><span class="p">(</span><span class="nx">bs</span><span class="p">,</span> <span class="nx">n</span><span class="p">.</span><span class="nx">pre</span><span class="p">)</span>
+
+	<span class="c1">// copy in the seq in base36.
+</span><span class="c1"></span>	<span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">l</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">b</span><span class="p">),</span> <span class="nx">seq</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&gt;</span> <span class="nx">preLen</span><span class="p">;</span> <span class="nx">l</span> <span class="o">/=</span> <span class="nx">base</span> <span class="p">{</span>
+		<span class="nx">i</span> <span class="o">-=</span> <span class="mi">1</span>
+		<span class="nx">b</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nx">digits</span><span class="p">[</span><span class="nx">l</span><span class="o">%</span><span class="nx">base</span><span class="p">]</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="nb">string</span><span class="p">(</span><span class="nx">b</span><span class="p">[:])</span>
+<span class="p">}</span></code></pre></div>
+<p>算法是<code>12字节随机前缀字符串+10字节序列号字符串</code>，两个字符串都是先由随机数或者随机数+随机递增数产生后，再逐数字位随机读取再转换成数字大小写字母。算法很精炼，可以仔细阅读源码研究。</p>
+
+<p>另外，项目源码中还有生成<code>NUID</code>的测试和性能测试程序，还有唯一性检测程序，可以测试和检验。</p>
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://semieye.github.io/post/2018/03/gobyexample/" data-toggle="tooltip" data-placement="top" title="一个适合Go入门者的教程">&larr; Previous Post</a>
+            </li>
+          
+          
+            <li class="next">
+              <a href="https://semieye.github.io/post/2018/03/awesome-go-projects/" data-toggle="tooltip" data-placement="top" title="Go开源项目（自己整理记录的）">Next Post &rarr;</a>
+            </li>
+          
+        </ul>
+      
+
+
+      
+
+    </div>
+  </div>
+</div>
+
+    <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="mailto:semieye@qq.com" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/semieye" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="https://semieye.github.io/">semieye</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;
+          2018
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://semieye.github.io/">Nothing lasts forever</a>
+            &nbsp;&bull;&nbsp;
+            <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="http://gohugo.io">Hugo v0.37.1</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js" integrity="sha384-dq1/gEHSxPZQ7DdrM82ID4YVol9BYyU7GbWlIwnwyPzotpoc57wDw/guX8EaYGPx" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://semieye.github.io/js/main.js"></script><script> renderMathInElement(document.body); </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script>
+<script src="https://semieye.github.io/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+  </body>
+</html>
+
