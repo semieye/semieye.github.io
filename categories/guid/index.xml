@@ -21,7 +21,9 @@
       <guid>https://semieye.github.io/post/2018/03/guid-uuid-nuid/</guid>
       <description>&lt;p&gt;开发项目中可能经常会使用到唯一标识符（&lt;code&gt;Unique Identifier&lt;/code&gt;），特别是设计一些并发并行的应用系统，之前在Github上看到了一些生成算法库，在此做些学习记录，以备或需。&lt;/p&gt;
 
-&lt;h4 id=&#34;uuid&#34;&gt;UUID&lt;/h4&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;uuid&#34;&gt;UUID&lt;/h3&gt;
 
 &lt;hr /&gt;
 
