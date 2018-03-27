@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Go Examples on Nothing lasts forever</title>
+    <link>https://semieye.github.io/tags/go-examples/</link>
+    <description>Recent content in Go Examples on Nothing lasts forever</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <managingEditor>semieye@qq.com (semieye)</managingEditor>
+    <webMaster>semieye@qq.com (semieye)</webMaster>
+    <lastBuildDate>Tue, 27 Mar 2018 09:17:28 +0800</lastBuildDate>
+    
+	<atom:link href="https://semieye.github.io/tags/go-examples/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>一个适合Go入门者的教程</title>
+      <link>https://semieye.github.io/post/2018/03/gobyexample/</link>
+      <pubDate>Tue, 27 Mar 2018 09:17:28 +0800</pubDate>
+      <author>semieye@qq.com (semieye)</author>
+      <guid>https://semieye.github.io/post/2018/03/gobyexample/</guid>
+      <description>&lt;p&gt;今天看到一个适合Go初学者、入门者，以及某些记性差的（比如我）一段时间老不用Go开发就忘记了语法，重看语言基础的时候，可以浏览的教程，带示例讲解，注释浅显易懂。&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;英文版： &lt;br /&gt;
+&lt;a href=&#34;https://gobyexample.com&#34;&gt;https://gobyexample.com&lt;/a&gt; &lt;br /&gt;
+&lt;a href=&#34;https://github.com/mmcgrana/gobyexample&#34;&gt;https://github.com/mmcgrana/gobyexample&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;中文翻译： &lt;br /&gt;
+&lt;a href=&#34;https://gobyexample.xgwang.me&#34;&gt;https://gobyexample.xgwang.me&lt;/a&gt; &lt;br /&gt;
+&lt;a href=&#34;https://github.com/xg-wang/gobyexample&#34;&gt;https://github.com/xg-wang/gobyexample&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;特此记录，感谢作者，翻译者。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
