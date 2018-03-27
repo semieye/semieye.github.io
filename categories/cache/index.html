@@ -98,13 +98,19 @@
         
           
             <li>
-              <a title="Blog" href="/post">Blog</a>
+              <a title="Home" href="/">Home</a>
             </li>
           
         
           
             <li>
               <a title="About" href="/about">About</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Archives" href="/post">Archives</a>
             </li>
           
         
@@ -144,146 +150,82 @@
 
 
     
-  <header class="header-section ">
+<header class="header-section ">
     <div class="intro-header no-img">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <div class="page-heading">
-              <h2>#Cache</h2>
-              <hr class="small">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="page-heading">
+                        
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-  </header>
+</header>
 
     
-  <div class="container" role="main">
+<div class="container" role="main">
     <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        
-        <div class="posts-list">
-          
-            <article class="post-preview">
-              <a href="https://semieye.github.io/post/2018/03/go-cache/">
-                <h2 class="post-title">Go 源码学习（ go-cache ）</h2>
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            
 
+
+            <div class="posts-list">
                 
-                  <h3 class="post-subtitle">
-                    go-cache
-                  </h3>
+                <h1>2018</h1>
+                <ul>
+                    
+                    <span class="post-preview">
+                        <li>
+                            
+                            <h3 class="post-subtitle">
+                                <a href="https://semieye.github.io/post/2018/03/go-cache/">
+                                    Go 源码学习（ go-cache ）
+                                </a>
+                                
+                                <span class="post-meta">
+                                    -- go-cache
+                                </span>
+                                
+                            </h3>
+                            <h4 class="post-subtitle">
+                            <span class="post-meta">
+                                <i class="fa fa-calendar-o"></i>&nbsp;
+                                Posted on Sun, 25 Mar 2018 20:36:52 CST
+                            </span>
+                            </h4>
+                        </li>
+                    </span>
+                    
+                    <span class="post-preview">
+                        <li>
+                            
+                            <h3 class="post-subtitle">
+                                <a href="https://semieye.github.io/post/2018/03/gin-contrib-cache/">
+                                    Gin 源码学习（Gin Cache Middleware）
+                                </a>
+                                
+                                <span class="post-meta">
+                                    -- Gin Cache Middleware
+                                </span>
+                                
+                            </h3>
+                            <h4 class="post-subtitle">
+                            <span class="post-meta">
+                                <i class="fa fa-calendar-o"></i>&nbsp;
+                                Posted on Sat, 24 Mar 2018 18:55:26 CST
+                            </span>
+                            </h4>
+                        </li>
+                    </span>
+                    
+                </ul>
                 
-              </a>
-
-              <p class="post-meta">
-                <i class="fa fa-calendar-o"></i>&nbsp;Posted on Sun, 25 Mar 2018 20:36:52 CST
-
-  
-  &nbsp;|&nbsp;
-  <i class="fa fa-clock-o"></i> 2 minutes (963 words)
-  
-
-  
-  
-  
-              </p>
-              <div class="post-entry">
-                
-                  <p><a href="https://github.com/patrickmn/go-cache">https://github.com/patrickmn/go-cache</a> 缓存</p>
-
-<p>上次学习 <a href="https://github.com/gin-contrib/cache"><u>gin-contrib/cache</u> </a> 的源码时，说到其支持的 <a href="https://github.com/robfig/go-cache"><u>go-cache</u></a> 内存缓存，但发现该库最后更新是5、6年前，并且fork自：<a href="https://github.com/patrickmn/go-cache"><u>patrickmn/go-cache</u></a> ，而原作者去年仍然在少量更新，并且有一些变化，今天对这个库阅读分析一下。</p>
-
-<p>这是一个类似于<code>memcached</code>的<code>key-value</code>型内存缓存，但并不是独立服务程序，可以被当做一个库编译进程序，适合单机应用，线程安全。</p>
-
-<p></p>
-                  <a href="https://semieye.github.io/post/2018/03/go-cache/" class="post-read-more">[Read More]</a>
-                
-              </div>
-
-              
-                <span class="post-meta">
-                  
-                    #<a href="https://semieye.github.io//tags/go/">Go</a>&nbsp;
-                  
-                    #<a href="https://semieye.github.io//tags/go-cache/">go-cache</a>&nbsp;
-                  
-                </span>
-              
-
-            </article>
-          
-            <article class="post-preview">
-              <a href="https://semieye.github.io/post/2018/03/gin-contrib-cache/">
-                <h2 class="post-title">Gin 源码学习（Gin Cache Middleware）</h2>
-
-                
-                  <h3 class="post-subtitle">
-                    Gin Cache Middleware
-                  </h3>
-                
-              </a>
-
-              <p class="post-meta">
-                <i class="fa fa-calendar-o"></i>&nbsp;Posted on Sat, 24 Mar 2018 18:55:26 CST
-
-  
-  &nbsp;|&nbsp;
-  <i class="fa fa-clock-o"></i> 2 minutes (831 words)
-  
-
-  
-  
-  
-              </p>
-              <div class="post-entry">
-                
-                  <p><a href="https://github.com/gin-contrib/cache">https://github.com/gin-contrib/cache</a> 缓存</p>
-
-<!--网易云音乐   <iframe style="max-width: 100%"
-      class="music163"
-      frameborder="no"
-      border="0"
-      marginwidth="0"
-      marginheight="0"
-      width="330"
-      height="86"
-      src="//music.163.com/outchain/player?type=2&id=28196554&auto=0&height=66">
-    </iframe>-->
-
-<p>这个项目是Gin的一个Middleware，用于缓存请求结果，目前支持 <a href="https://github.com/robfig/go-cache"><u>go-cache</u></a> 内存缓存（ps：这个库最新的应该是这个地址：<a href="https://github.com/patrickmn/go-cache"><u>patrickmn/go-cache</u></a>）、<a href="https://github.com/bradfitz/gomemcache"><u>memcached</u></a> 缓存、<a href="https://github.com/garyburd/redigo/redis"><u>redis</u></a> 缓存三种类型。这三个库以后再阅读学习，今天先完成这个项目的学习。缓存用的key采用<code>urlEscape</code>函数生成，规则为：前缀+冒号+URL(或其MD5)。</p>
-
-<p>示例中仅仅给了一个<code>CachePage</code>的用法：</p>
-<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go">	<span class="nx">r</span><span class="p">.</span><span class="nx">GET</span><span class="p">(</span><span class="s">&#34;/cache_ping&#34;</span><span class="p">,</span> <span class="nx">cache</span><span class="p">.</span><span class="nx">CachePage</span><span class="p">(</span><span class="nx">store</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Minute</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">gin</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>
-		<span class="nx">c</span><span class="p">.</span><span class="nx">String</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="s">&#34;pong &#34;</span><span class="o">+</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Sprint</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">().</span><span class="nx">Unix</span><span class="p">()))</span>
-	<span class="p">}))</span></code></pre></div>
-<p></p>
-                  <a href="https://semieye.github.io/post/2018/03/gin-contrib-cache/" class="post-read-more">[Read More]</a>
-                
-              </div>
-
-              
-                <span class="post-meta">
-                  
-                    #<a href="https://semieye.github.io//tags/go/">Go</a>&nbsp;
-                  
-                    #<a href="https://semieye.github.io//tags/gin/">Gin</a>&nbsp;
-                  
-                    #<a href="https://semieye.github.io//tags/gin-middleware/">Gin Middleware</a>&nbsp;
-                  
-                    #<a href="https://semieye.github.io//tags/cache/">Cache</a>&nbsp;
-                  
-                </span>
-              
-
-            </article>
-          
+            </div>
         </div>
-        
-      </div>
     </div>
-  </div>
+</div>
 
     <footer>
   <div class="container">

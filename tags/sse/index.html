@@ -98,13 +98,19 @@
         
           
             <li>
-              <a title="Blog" href="/post">Blog</a>
+              <a title="Home" href="/">Home</a>
             </li>
           
         
           
             <li>
               <a title="About" href="/about">About</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Archives" href="/post">Archives</a>
             </li>
           
         
@@ -144,199 +150,104 @@
 
 
     
-  <header class="header-section ">
+<header class="header-section ">
     <div class="intro-header no-img">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <div class="page-heading">
-              <h2>#Sse</h2>
-              <hr class="small">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="page-heading">
+                        
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-  </header>
+</header>
 
     
-  <div class="container" role="main">
+<div class="container" role="main">
     <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        
-        <div class="posts-list">
-          
-            <article class="post-preview">
-              <a href="https://semieye.github.io/post/2018/03/alexandrevicenzi-go-sse/">
-                <h2 class="post-title">Go 源码学习（ go-sse ）</h2>
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            
 
+
+            <div class="posts-list">
                 
-                  <h3 class="post-subtitle">
-                    alexandrevicenzi-go-sse
-                  </h3>
+                <h1>2018</h1>
+                <ul>
+                    
+                    <span class="post-preview">
+                        <li>
+                            
+                            <h3 class="post-subtitle">
+                                <a href="https://semieye.github.io/post/2018/03/alexandrevicenzi-go-sse/">
+                                    Go 源码学习（ go-sse ）
+                                </a>
+                                
+                                <span class="post-meta">
+                                    -- alexandrevicenzi-go-sse
+                                </span>
+                                
+                            </h3>
+                            <h4 class="post-subtitle">
+                            <span class="post-meta">
+                                <i class="fa fa-calendar-o"></i>&nbsp;
+                                Posted on Mon, 26 Mar 2018 16:29:26 CST
+                            </span>
+                            </h4>
+                        </li>
+                    </span>
+                    
+                    <span class="post-preview">
+                        <li>
+                            
+                            <h3 class="post-subtitle">
+                                <a href="https://semieye.github.io/post/2018/03/benas-gossed/">
+                                    Go 源码学习（ gossed ）
+                                </a>
+                                
+                                <span class="post-meta">
+                                    -- benas-gossed
+                                </span>
+                                
+                            </h3>
+                            <h4 class="post-subtitle">
+                            <span class="post-meta">
+                                <i class="fa fa-calendar-o"></i>&nbsp;
+                                Posted on Mon, 26 Mar 2018 15:09:26 CST
+                            </span>
+                            </h4>
+                        </li>
+                    </span>
+                    
+                    <span class="post-preview">
+                        <li>
+                            
+                            <h3 class="post-subtitle">
+                                <a href="https://semieye.github.io/post/2018/03/gin-contrib-sse/">
+                                    Gin 源码学习（Gin SSE Middleware）
+                                </a>
+                                
+                                <span class="post-meta">
+                                    -- Gin SSE Middleware
+                                </span>
+                                
+                            </h3>
+                            <h4 class="post-subtitle">
+                            <span class="post-meta">
+                                <i class="fa fa-calendar-o"></i>&nbsp;
+                                Posted on Mon, 26 Mar 2018 10:14:26 CST
+                            </span>
+                            </h4>
+                        </li>
+                    </span>
+                    
+                </ul>
                 
-              </a>
-
-              <p class="post-meta">
-                <i class="fa fa-calendar-o"></i>&nbsp;Posted on Mon, 26 Mar 2018 16:29:26 CST
-
-  
-  &nbsp;|&nbsp;
-  <i class="fa fa-clock-o"></i> 3 minutes (1055 words)
-  
-
-  
-  
-  
-              </p>
-              <div class="post-entry">
-                
-                  <p>上次学习了<code>gossed</code> 项目 <strong><a href="https://github.com/benas/gossed">https://github.com/benas/gossed</a></strong></p>
-
-<p>再来学习一下它用到的核心开源库：<strong><a href="https://github.com/alexandrevicenzi/go-sse">https://github.com/alexandrevicenzi/go-sse</a></strong></p>
-
-<p>这个项目也是一个Go语言实现SSE的库，按照README里面的说明：支持多通道隔离，广播，自定义<code>headers</code>，支持<code>Last-Event-ID</code>，遵循<a href="https://html.spec.whatwg.org/multipage/server-sent-events.html"><strong>SSE规范</strong></a>。</p>
-
-<p>这个库主要由三个核心源文件 <code>sse.go</code>，<code>client.go</code>，<code>channel.go</code> 组成，分别完成相应功能，具体看一下代码。</p>
-
-<p><code>client.go</code> 中Client结构，收到http请求后创建：</p>
-<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">Client</span> <span class="kd">struct</span> <span class="p">{</span>
-    <span class="nx">lastEventId</span><span class="p">,</span>
-    <span class="nx">channel</span> <span class="kt">string</span>
-    <span class="nx">send</span> <span class="kd">chan</span> <span class="o">*</span><span class="nx">Message</span>
-<span class="p">}</span></code></pre></div>
-<p></p>
-                  <a href="https://semieye.github.io/post/2018/03/alexandrevicenzi-go-sse/" class="post-read-more">[Read More]</a>
-                
-              </div>
-
-              
-                <span class="post-meta">
-                  
-                    #<a href="https://semieye.github.io//tags/go/">Go</a>&nbsp;
-                  
-                    #<a href="https://semieye.github.io//tags/sse/">SSE</a>&nbsp;
-                  
-                </span>
-              
-
-            </article>
-          
-            <article class="post-preview">
-              <a href="https://semieye.github.io/post/2018/03/benas-gossed/">
-                <h2 class="post-title">Go 源码学习（ gossed ）</h2>
-
-                
-                  <h3 class="post-subtitle">
-                    benas-gossed
-                  </h3>
-                
-              </a>
-
-              <p class="post-meta">
-                <i class="fa fa-calendar-o"></i>&nbsp;Posted on Mon, 26 Mar 2018 15:09:26 CST
-
-  
-  &nbsp;|&nbsp;
-  <i class="fa fa-clock-o"></i> 2 minutes (726 words)
-  
-
-  
-  
-  
-              </p>
-              <div class="post-entry">
-                
-                  <p>上次说到Gin框架中有<code>Server-Send Events</code>的实现，这次针对SSE又进一步做了些研究，涉及到两个项目，分两篇学习。项目地址：<strong><a href="https://github.com/benas/gossed">https://github.com/benas/gossed</a></strong></p>
-
-<p>这个项目是利用<a href="https://github.com/alexandrevicenzi/go-sse"><strong>alexandrevicenzi/go-sse</strong></a> 项目来实现将标准输入数据转发给浏览器，这是个有趣的项目，可以用浏览器来实时监控某些你想要监控的数据。:)</p>
-
-<p><img src="https://raw.githubusercontent.com/benas/ssed/master/examples/system-stats/screenshot.png" alt="" /></p>
-
-<p></p>
-                  <a href="https://semieye.github.io/post/2018/03/benas-gossed/" class="post-read-more">[Read More]</a>
-                
-              </div>
-
-              
-                <span class="post-meta">
-                  
-                    #<a href="https://semieye.github.io//tags/go/">Go</a>&nbsp;
-                  
-                    #<a href="https://semieye.github.io//tags/sse/">SSE</a>&nbsp;
-                  
-                </span>
-              
-
-            </article>
-          
-            <article class="post-preview">
-              <a href="https://semieye.github.io/post/2018/03/gin-contrib-sse/">
-                <h2 class="post-title">Gin 源码学习（Gin SSE Middleware）</h2>
-
-                
-                  <h3 class="post-subtitle">
-                    Gin SSE Middleware
-                  </h3>
-                
-              </a>
-
-              <p class="post-meta">
-                <i class="fa fa-calendar-o"></i>&nbsp;Posted on Mon, 26 Mar 2018 10:14:26 CST
-
-  
-  &nbsp;|&nbsp;
-  <i class="fa fa-clock-o"></i> 2 minutes (648 words)
-  
-
-  
-  
-  
-              </p>
-              <div class="post-entry">
-                
-                  <p><a href="https://github.com/gin-contrib/sse">https://github.com/gin-contrib/sse</a> Server-Send Events</p>
-
-<p>这个项目是<code>Server-Send Events</code>协议的Go语言实现，有关<code>Server-Send Events</code>的知识，可以参看这几个链接：<a href="https://www.html5rocks.com/en/tutorials/eventsource/basics/">谷歌HTML5项目网站一篇精彩介绍</a> 和 <a href="http://www.ruanyifeng.com/blog/2017/05/server-sent_events.html">阮一峰的中文教程</a> ，这是<code>HTML5</code>的一个技术规范，用于服务器向浏览器单向推送消息，相对于<code>Websocket</code>协议，更简单和轻量化。</p>
-
-<p>这个项目被用在了Gin框架之中，用来实现Gin对SSE的支持（<code>c.SSEvent()</code>）。具体可以参看Gin框架源码中<a href="https://github.com/gin-gonic/gin/tree/master/examples/realtime-advanced">实时聊天高级示例</a> 的代码。</p>
-
-<p>下面简单分析和记录一下这个库的工作原理。</p>
-
-<p>Gin中提供了一个方法，支持返回<code>SSEvent</code>数据，返回的是一个<code>sse.Event</code>：</p>
-<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// SSEvent writes a Server-Sent Event into the body stream.
-</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">Context</span><span class="p">)</span> <span class="nx">SSEvent</span><span class="p">(</span><span class="nx">name</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">message</span> <span class="kd">interface</span><span class="p">{})</span> <span class="p">{</span>
-	<span class="nx">c</span><span class="p">.</span><span class="nx">Render</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nx">sse</span><span class="p">.</span><span class="nx">Event</span><span class="p">{</span>
-		<span class="nx">Event</span><span class="p">:</span> <span class="nx">name</span><span class="p">,</span>
-		<span class="nx">Data</span><span class="p">:</span>  <span class="nx">message</span><span class="p">,</span>
-	<span class="p">})</span>
-<span class="p">}</span></code></pre></div>
-<p></p>
-                  <a href="https://semieye.github.io/post/2018/03/gin-contrib-sse/" class="post-read-more">[Read More]</a>
-                
-              </div>
-
-              
-                <span class="post-meta">
-                  
-                    #<a href="https://semieye.github.io//tags/go/">Go</a>&nbsp;
-                  
-                    #<a href="https://semieye.github.io//tags/gin/">Gin</a>&nbsp;
-                  
-                    #<a href="https://semieye.github.io//tags/gin-middleware/">Gin Middleware</a>&nbsp;
-                  
-                    #<a href="https://semieye.github.io//tags/sse/">SSE</a>&nbsp;
-                  
-                </span>
-              
-
-            </article>
-          
+            </div>
         </div>
-        
-      </div>
     </div>
-  </div>
+</div>
 
     <footer>
   <div class="container">

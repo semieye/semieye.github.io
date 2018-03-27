@@ -98,13 +98,19 @@
         
           
             <li>
-              <a title="Blog" href="/post">Blog</a>
+              <a title="Home" href="/">Home</a>
             </li>
           
         
           
             <li>
               <a title="About" href="/about">About</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Archives" href="/post">Archives</a>
             </li>
           
         
@@ -144,92 +150,60 @@
 
 
     
-  <header class="header-section ">
+<header class="header-section ">
     <div class="intro-header no-img">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <div class="page-heading">
-              <h2>#Limit</h2>
-              <hr class="small">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="page-heading">
+                        
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-  </header>
+</header>
 
     
-  <div class="container" role="main">
+<div class="container" role="main">
     <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        
-        <div class="posts-list">
-          
-            <article class="post-preview">
-              <a href="https://semieye.github.io/post/2018/03/gin-limit/">
-                <h2 class="post-title">Gin 源码学习（Gin Limit Middleware）</h2>
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            
 
+
+            <div class="posts-list">
                 
-                  <h3 class="post-subtitle">
-                    Gin Limit Middleware
-                  </h3>
+                <h1>2018</h1>
+                <ul>
+                    
+                    <span class="post-preview">
+                        <li>
+                            
+                            <h3 class="post-subtitle">
+                                <a href="https://semieye.github.io/post/2018/03/gin-limit/">
+                                    Gin 源码学习（Gin Limit Middleware）
+                                </a>
+                                
+                                <span class="post-meta">
+                                    -- Gin Limit Middleware
+                                </span>
+                                
+                            </h3>
+                            <h4 class="post-subtitle">
+                            <span class="post-meta">
+                                <i class="fa fa-calendar-o"></i>&nbsp;
+                                Posted on Fri, 23 Mar 2018 22:40:52 CST
+                            </span>
+                            </h4>
+                        </li>
+                    </span>
+                    
+                </ul>
                 
-              </a>
-
-              <p class="post-meta">
-                <i class="fa fa-calendar-o"></i>&nbsp;Posted on Fri, 23 Mar 2018 22:40:52 CST
-
-  
-  &nbsp;|&nbsp;
-  <i class="fa fa-clock-o"></i> 1 minutes (366 words)
-  
-
-  
-  
-  
-              </p>
-              <div class="post-entry">
-                
-                  <p><a href="https://github.com/aviddiviner/gin-limit">https://github.com/aviddiviner/gin-limit</a> 请求限制</p>
-
-<p>代码超级简单呐，利用空结构体和缓冲为n的chan做连接限制，请看：</p>
-<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nx">MaxAllowed</span><span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="nx">gin</span><span class="p">.</span><span class="nx">HandlerFunc</span> <span class="p">{</span>
-	<span class="nx">sem</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kd">struct</span><span class="p">{},</span> <span class="nx">n</span><span class="p">)</span>
-	<span class="nx">acquire</span> <span class="o">:=</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span> <span class="nx">sem</span> <span class="o">&lt;-</span> <span class="kd">struct</span><span class="p">{}{}</span> <span class="p">}</span>
-	<span class="nx">release</span> <span class="o">:=</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span> <span class="o">&lt;-</span><span class="nx">sem</span> <span class="p">}</span>
-	<span class="k">return</span> <span class="kd">func</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">gin</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>
-		<span class="nx">acquire</span><span class="p">()</span> <span class="c1">// before request
-</span><span class="c1"></span>		<span class="k">defer</span> <span class="nx">release</span><span class="p">()</span> <span class="c1">// after request
-</span><span class="c1"></span>		<span class="nx">c</span><span class="p">.</span><span class="nx">Next</span><span class="p">()</span>
-	<span class="p">}</span>
-<span class="p">}</span></code></pre></div>
-<p></p>
-                  <a href="https://semieye.github.io/post/2018/03/gin-limit/" class="post-read-more">[Read More]</a>
-                
-              </div>
-
-              
-                <span class="post-meta">
-                  
-                    #<a href="https://semieye.github.io//tags/go/">Go</a>&nbsp;
-                  
-                    #<a href="https://semieye.github.io//tags/gin/">Gin</a>&nbsp;
-                  
-                    #<a href="https://semieye.github.io//tags/gin-middleware/">Gin Middleware</a>&nbsp;
-                  
-                    #<a href="https://semieye.github.io//tags/limit/">Limit</a>&nbsp;
-                  
-                </span>
-              
-
-            </article>
-          
+            </div>
         </div>
-        
-      </div>
     </div>
-  </div>
+</div>
 
     <footer>
   <div class="container">

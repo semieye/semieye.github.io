@@ -1,180 +1,221 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<?xml-stylesheet type="text/xsl" href="https://semieye.github.io/sitemap.xsl"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
     <loc>https://semieye.github.io/post/2018/03/awesome-go-projects/</loc>
     <lastmod>2018-03-25T17:06:26+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://semieye.github.io/post/2018/03/guid-uuid-nuid/</loc>
     <lastmod>2018-03-27T16:49:44+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://semieye.github.io/post/2018/03/gobyexample/</loc>
     <lastmod>2018-03-27T09:17:28+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://semieye.github.io/post/2018/03/alexandrevicenzi-go-sse/</loc>
     <lastmod>2018-03-26T16:29:26+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://semieye.github.io/post/2018/03/benas-gossed/</loc>
     <lastmod>2018-03-26T15:09:26+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://semieye.github.io/post/2018/03/gin-contrib-sse/</loc>
     <lastmod>2018-03-26T10:14:26+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://semieye.github.io/post/2018/03/go-cache/</loc>
     <lastmod>2018-03-25T20:36:52+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://semieye.github.io/post/2018/03/gin-contrib-cache/</loc>
     <lastmod>2018-03-24T18:55:26+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://semieye.github.io/post/2018/03/gin-limit/</loc>
     <lastmod>2018-03-23T22:40:52+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://semieye.github.io/about/</loc>
     <lastmod>2018-03-22T21:41:23+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://semieye.github.io/tags/cache/</loc>
-    <lastmod>2018-03-24T18:55:26+08:00</lastmod>
-    <priority>0</priority>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://semieye.github.io/categories/cache/</loc>
     <lastmod>2018-03-25T20:36:52+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://semieye.github.io/tags/cache/</loc>
+    <lastmod>2018-03-24T18:55:26+08:00</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://semieye.github.io/categories/</loc>
     <lastmod>2018-03-25T20:36:52+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://semieye.github.io/tags/gin/</loc>
-    <lastmod>2018-03-26T10:14:26+08:00</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://semieye.github.io/categories/gin/</loc>
     <lastmod>2018-03-26T10:14:26+08:00</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://semieye.github.io/tags/gin-middleware/</loc>
+    <loc>https://semieye.github.io/tags/gin/</loc>
     <lastmod>2018-03-26T10:14:26+08:00</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://semieye.github.io/categories/gin-middleware/</loc>
     <lastmod>2018-03-26T10:14:26+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://semieye.github.io/tags/gin-middleware/</loc>
+    <lastmod>2018-03-26T10:14:26+08:00</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://semieye.github.io/tags/github/</loc>
     <lastmod>2018-03-25T17:06:26+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://semieye.github.io/tags/go/</loc>
-    <lastmod>2018-03-25T17:06:26+08:00</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://semieye.github.io/categories/go/</loc>
     <lastmod>2018-03-25T17:06:26+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://semieye.github.io/tags/go/</loc>
+    <lastmod>2018-03-25T17:06:26+08:00</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://semieye.github.io/tags/go-cache/</loc>
     <lastmod>2018-03-25T20:36:52+08:00</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://semieye.github.io/tags/go-examples/</loc>
     <lastmod>2018-03-27T09:17:28+08:00</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://semieye.github.io/categories/go-libs/</loc>
     <lastmod>2018-03-25T20:36:52+08:00</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://semieye.github.io/categories/guid/</loc>
     <lastmod>2018-03-27T16:49:44+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://semieye.github.io/tags/limit/</loc>
-    <lastmod>2018-03-23T22:40:52+08:00</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://semieye.github.io/categories/limit/</loc>
     <lastmod>2018-03-23T22:40:52+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://semieye.github.io/tags/limit/</loc>
+    <lastmod>2018-03-23T22:40:52+08:00</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://semieye.github.io/</loc>
     <lastmod>2018-03-25T17:06:26+08:00</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://semieye.github.io/post/</loc>
     <lastmod>2018-03-25T17:06:26+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://semieye.github.io/tags/sse/</loc>
-    <lastmod>2018-03-26T16:29:26+08:00</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://semieye.github.io/categories/sse/</loc>
     <lastmod>2018-03-26T16:29:26+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://semieye.github.io/tags/sse/</loc>
+    <lastmod>2018-03-26T16:29:26+08:00</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://semieye.github.io/tags/</loc>
     <lastmod>2018-03-24T18:55:26+08:00</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
