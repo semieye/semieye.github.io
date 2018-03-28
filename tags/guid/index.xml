@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Guid on Nothing lasts forever</title>
-    <link>https://semieye.github.io/categories/guid/</link>
+    <link>https://semieye.github.io/tags/guid/</link>
     <description>Recent content in Guid on Nothing lasts forever</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
@@ -10,7 +10,7 @@
     <webMaster>semieye@qq.com (semieye)</webMaster>
     <lastBuildDate>Tue, 27 Mar 2018 16:49:44 +0800</lastBuildDate>
     
-	<atom:link href="https://semieye.github.io/categories/guid/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://semieye.github.io/tags/guid/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>

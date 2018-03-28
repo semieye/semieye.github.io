@@ -2,16 +2,42 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Go Libs on Nothing lasts forever</title>
-    <link>https://semieye.github.io/categories/go-libs/</link>
+    <link>https://semieye.github.io/tags/go-libs/</link>
     <description>Recent content in Go Libs on Nothing lasts forever</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <managingEditor>semieye@qq.com (semieye)</managingEditor>
     <webMaster>semieye@qq.com (semieye)</webMaster>
-    <lastBuildDate>Sun, 25 Mar 2018 20:36:52 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 27 Mar 2018 16:49:44 +0800</lastBuildDate>
     
-	<atom:link href="https://semieye.github.io/categories/go-libs/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://semieye.github.io/tags/go-libs/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>xUID 三种唯一ID生成</title>
+      <link>https://semieye.github.io/post/2018/03/guid-uuid-nuid/</link>
+      <pubDate>Tue, 27 Mar 2018 16:49:44 +0800</pubDate>
+      <author>semieye@qq.com (semieye)</author>
+      <guid>https://semieye.github.io/post/2018/03/guid-uuid-nuid/</guid>
+      <description>&lt;p&gt;开发项目中可能经常会使用到唯一标识符（&lt;code&gt;Unique Identifier&lt;/code&gt;），特别是设计一些并发并行的应用系统，之前在Github上看到了一些生成算法库，在此做些学习记录，以备或需。
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;uuid&#34;&gt;UUID&lt;/h3&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;第一种&lt;code&gt;UUID&lt;/code&gt;，这个就不用多说了，很多语言标准库里面都提供了生成函数，Go的标准库里面没有，但是万能的开源社区提供了多个项目，用来实现符合&lt;code&gt;RFC4122&lt;/code&gt;规范的&lt;code&gt;UUID&lt;/code&gt;。&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;我看了两个项目：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://github.com/nu7hatch/gouuid&#34;&gt;https://github.com/nu7hatch/gouuid&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://github.com/satori/go.uuid&#34;&gt;https://github.com/satori/go.uuid&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;</description>
+    </item>
     
     <item>
       <title>Go 源码学习（ go-cache ）</title>

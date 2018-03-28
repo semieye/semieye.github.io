@@ -8,7 +8,7 @@
     <language>zh-CN</language>
     <managingEditor>semieye@qq.com (semieye)</managingEditor>
     <webMaster>semieye@qq.com (semieye)</webMaster>
-    <lastBuildDate>Sat, 24 Mar 2018 18:55:26 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 25 Mar 2018 20:36:52 +0800</lastBuildDate>
     
 	<atom:link href="https://semieye.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
@@ -16,7 +16,7 @@
     <item>
       <title>Cache</title>
       <link>https://semieye.github.io/tags/cache/</link>
-      <pubDate>Sat, 24 Mar 2018 18:55:26 +0800</pubDate>
+      <pubDate>Sun, 25 Mar 2018 20:36:52 +0800</pubDate>
       <author>semieye@qq.com (semieye)</author>
       <guid>https://semieye.github.io/tags/cache/</guid>
       <description></description>
@@ -73,6 +73,24 @@
       <pubDate>Tue, 27 Mar 2018 09:17:28 +0800</pubDate>
       <author>semieye@qq.com (semieye)</author>
       <guid>https://semieye.github.io/tags/go-examples/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Go Libs</title>
+      <link>https://semieye.github.io/tags/go-libs/</link>
+      <pubDate>Tue, 27 Mar 2018 16:49:44 +0800</pubDate>
+      <author>semieye@qq.com (semieye)</author>
+      <guid>https://semieye.github.io/tags/go-libs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Guid</title>
+      <link>https://semieye.github.io/tags/guid/</link>
+      <pubDate>Tue, 27 Mar 2018 16:49:44 +0800</pubDate>
+      <author>semieye@qq.com (semieye)</author>
+      <guid>https://semieye.github.io/tags/guid/</guid>
       <description></description>
     </item>
     
