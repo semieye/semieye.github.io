@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>Gin 源码学习（Gin JWT Middleware）</title>
+  <meta property="og:title" content="Gin 源码学习（Gin JWT Middleware）" />
+  <meta name="twitter:title" content="Gin 源码学习（Gin JWT Middleware）" />
+  <meta name="description" content="记录一些值得学习的Go开源项目">
+  <meta property="og:description" content="记录一些值得学习的Go开源项目">
+  <meta name="twitter:description" content="记录一些值得学习的Go开源项目">
+  <meta name="author" content="semieye"/>
+  <link href='https://semieye.github.io/img/favicon.ico' rel='icon' type='image/x-icon'/>
+  <meta property="og:image" content="https://semieye.github.io/img/avatar-icon.png" />
+  <meta name="twitter:image" content="https://semieye.github.io/img/avatar-icon.png" />
+  <meta name="twitter:card" content="summary" />
+  <meta property="og:url" content="https://semieye.github.io/post/2018/03/go-gin-jwt/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Nothing lasts forever" />
+
+  <meta name="generator" content="Hugo 0.37.1" />
+  <link rel="canonical" href="https://semieye.github.io/post/2018/03/go-gin-jwt/" />
+  <link rel="alternate" href="https://semieye.github.io/index.xml" type="application/rss+xml" title="Nothing lasts forever">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://semieye.github.io/css/main.css" />
+  <link rel="stylesheet" href="https://fonts.loli.net/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.loli.net/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="https://semieye.github.io/css/syntax.css" /><link rel="stylesheet" href="https://semieye.github.io/css/codeblock.css" />
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+</head>
+
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://semieye.github.io/">Nothing lasts forever</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Home" href="/">Home</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="About" href="/about">About</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Archives" href="/post">Archives</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Tags" href="/tags">Tags</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="Categories" href="/categories">Categories</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    <div class="avatar-container">
+      <div class="avatar-img-border">
+        
+          <a title="Nothing lasts forever" href="https://semieye.github.io/">
+            <img class="avatar-img" src="https://semieye.github.io/img/avatar-icon.png" alt="Nothing lasts forever" />
+          </a>
+        
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+
+
+    
+  
+  
+  
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              <h2>Gin 源码学习（Gin JWT Middleware）</h2>
+                
+                  
+                    <h2 class="post-subheading">Gin JWT Middleware</h2>
+                  
+                
+                
+                  <span class="post-meta">
+  
+  
+  <i class="fa fa-calendar-o"></i>&nbsp;Posted on Thu, 29 Mar 2018 08:40:52 CST
+  
+  &nbsp;|&nbsp;
+  <i class="fa fa-clock-o"></i> 2 minutes (788 words)
+  
+  
+  
+</span>
+
+
+                
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <p>记录一个Gin框架的JWT中间件，项目地址：<strong><a href="https://github.com/appleboy/gin-jwt">https://github.com/appleboy/gin-jwt</a></strong></p>
+
+<p>这个项目是利用 <a href="https://github.com/dgrijalva/jwt-go"><strong>dgrijalva/jwt-go</strong></a>  项目来实现<code>JSON Web Tokens</code> ，简称<code>JWT</code>。什么是<code>JWT</code>，可以参看这个文档 <a href="http://self-issued.info/docs/draft-ietf-oauth-json-web-token.html">JSON Web Token (JWT)</a> ，也可以百度，这有个中文介绍：<a href="https://www.jianshu.com/p/576dbf44b2ae">什么是 JWT &ndash; JSON WEB TOKEN</a> 。</p>
+
+<p></p>
+
+<p>JWT的原理和实现就不多少了，看看在Gin中怎么用这个Middleware吧。这个中间件就一个源文件：<code>auth_jwt.go</code> ，核心是这个结构，我保留几个重要的成员，节省阅读篇幅：</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">GinJWTMiddleware</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="o">...</span>
+	<span class="c1">// 算法.
+</span><span class="c1"></span>	<span class="nx">SigningAlgorithm</span> <span class="kt">string</span>
+	<span class="c1">// 密钥.
+</span><span class="c1"></span>	<span class="nx">Key</span> <span class="p">[]</span><span class="kt">byte</span>
+	<span class="c1">// 有效期.
+</span><span class="c1"></span>	<span class="nx">Timeout</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Duration</span>
+	<span class="c1">// 刷新Token有效期.
+</span><span class="c1"></span>	<span class="nx">MaxRefresh</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Duration</span>
+	<span class="c1">// 认证回调函数.
+</span><span class="c1"></span>	<span class="nx">Authenticator</span> <span class="kd">func</span><span class="p">(</span><span class="nx">userID</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">password</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">c</span> <span class="o">*</span><span class="nx">gin</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="kt">bool</span><span class="p">)</span>
+	<span class="c1">// 认证后处理.
+</span><span class="c1"></span>	<span class="nx">Authorizator</span> <span class="kd">func</span><span class="p">(</span><span class="nx">userID</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">c</span> <span class="o">*</span><span class="nx">gin</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="kt">bool</span>
+	<span class="o">...</span>
+	<span class="c1">// 认证失败函数.
+</span><span class="c1"></span>	<span class="nx">Unauthorized</span> <span class="kd">func</span><span class="p">(</span><span class="o">*</span><span class="nx">gin</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">string</span><span class="p">)</span>
+	<span class="o">...</span>
+<span class="p">}</span></code></pre></div>
+<p>库中已经写好了<code>LoginHandler</code>和<code>RefreshHandler</code>函数，可以直接拿来使用，<code>LoginHandler</code>在用户请求时会调用自定义的认证回调函数，成功后返回一个 <code>token</code> ，<code>RefreshHandler</code>会验证请求头部的<code>token</code>并返回一个新<code>token</code>。</p>
+
+<p>我写了一个测试程序演示如何使用，首先初始化<code>jwt.GinJWTMiddleware</code>结构，写好你自己的认证处理函数，如下所示：</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nx">init</span><span class="p">()</span> <span class="p">{</span>
+	<span class="c1">// the jwt middleware
+</span><span class="c1"></span>	<span class="nx">authMiddleware</span> <span class="p">=</span> <span class="o">&amp;</span><span class="nx">jwt</span><span class="p">.</span><span class="nx">GinJWTMiddleware</span><span class="p">{</span>
+		<span class="nx">Realm</span><span class="p">:</span>         <span class="s">&#34;Realmname&#34;</span><span class="p">,</span>
+		<span class="nx">Key</span><span class="p">:</span>           <span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&#34;Secretkey&#34;</span><span class="p">),</span>
+		<span class="nx">Timeout</span><span class="p">:</span>       <span class="nx">time</span><span class="p">.</span><span class="nx">Hour</span> <span class="o">*</span> <span class="mi">12</span><span class="p">,</span>
+		<span class="nx">MaxRefresh</span><span class="p">:</span>    <span class="nx">time</span><span class="p">.</span><span class="nx">Hour</span> <span class="o">*</span> <span class="mi">24</span><span class="p">,</span>
+		<span class="nx">Authenticator</span><span class="p">:</span> <span class="nx">jwtAuthFunc</span><span class="p">,</span>
+		<span class="nx">Unauthorized</span><span class="p">:</span>  <span class="nx">jwtUnAuthFunc</span><span class="p">,</span>
+        <span class="c1">// 其他默认
+</span><span class="c1"></span>	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">jwtAuthFunc</span><span class="p">(</span><span class="nx">userID</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">password</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">c</span> <span class="o">*</span><span class="nx">gin</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c1">// TODO register then login by username/password
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">userID</span> <span class="o">==</span> <span class="s">&#34;admin&#34;</span> <span class="o">&amp;&amp;</span> <span class="nx">password</span> <span class="o">==</span> <span class="s">&#34;xxxxx&#34;</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nx">userID</span><span class="p">,</span> <span class="kc">true</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="nx">userID</span><span class="p">,</span> <span class="kc">false</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nx">jwtUnAuthFunc</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">gin</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">code</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">message</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">c</span><span class="p">.</span><span class="nx">JSON</span><span class="p">(</span><span class="nx">code</span><span class="p">,</span> <span class="nx">gin</span><span class="p">.</span><span class="nx">H</span><span class="p">{</span>
+		<span class="s">&#34;code&#34;</span><span class="p">:</span>    <span class="nx">code</span><span class="p">,</span>
+		<span class="s">&#34;message&#34;</span><span class="p">:</span> <span class="nx">message</span><span class="p">,</span>
+	<span class="p">})</span>
+<span class="p">}</span></code></pre></div>
+<p>然后，在建立Gin的路由时使用这个中间件，可以指定某些入口使用<code>JWT</code>认证，例如：</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nx">routerEngine</span><span class="p">()</span> <span class="o">*</span><span class="nx">gin</span><span class="p">.</span><span class="nx">Engine</span> <span class="p">{</span>
+	<span class="nx">r</span> <span class="o">:=</span> <span class="nx">gin</span><span class="p">.</span><span class="nx">New</span><span class="p">()</span>
+	<span class="o">...</span>
+	<span class="nx">r</span><span class="p">.</span><span class="nx">POST</span><span class="p">(</span><span class="s">&#34;/login&#34;</span><span class="p">,</span> <span class="nx">authMiddleware</span><span class="p">.</span><span class="nx">LoginHandler</span><span class="p">)</span> <span class="c1">//login不验JWT
+</span><span class="c1"></span>	<span class="nx">r</span><span class="p">.</span><span class="nx">POST</span><span class="p">(</span><span class="s">&#34;/other_uri_donot_need_authz&#34;</span><span class="p">,</span> <span class="nx">otherHandler1</span><span class="p">)</span> <span class="c1">//不验JWT的
+</span><span class="c1"></span>	<span class="o">...</span>
+	<span class="nx">auth</span> <span class="o">:=</span> <span class="nx">r</span><span class="p">.</span><span class="nx">Group</span><span class="p">(</span><span class="s">&#34;/&#34;</span><span class="p">,</span> <span class="nx">authMiddleware</span><span class="p">.</span><span class="nx">MiddlewareFunc</span><span class="p">())</span> <span class="c1">//这个组全认证
+</span><span class="c1"></span>	<span class="nx">auth</span><span class="p">.</span><span class="nx">POST</span><span class="p">(</span><span class="s">&#34;/refresh_token&#34;</span><span class="p">,</span> <span class="nx">authMiddleware</span><span class="p">.</span><span class="nx">RefreshHandler</span><span class="p">)</span> <span class="c1">//刷新token
+</span><span class="c1"></span>	<span class="nx">auth</span><span class="p">.</span><span class="nx">POST</span><span class="p">(</span><span class="s">&#34;/other_uri_need_authz&#34;</span><span class="p">,</span> <span class="nx">otherHandler2</span><span class="p">)</span> <span class="c1">//验JWT的
+</span><span class="c1"></span>	<span class="o">...</span>
+	<span class="k">return</span> <span class="nx">r</span>
+<span class="p">}</span></code></pre></div>
+<p>需要验证 <code>JWT</code> 的请求，需要在请求头部 <code>HTTP Header</code> 中携带<code>Authorization:Bearer token_string</code> 。</p>
+
+<p>这样，一个实现JWT认证的服务就基本实现了，库中还提供了例如生成token的方法，当然如果还不够用，可以去 <a href="https://github.com/dgrijalva/jwt-go"><strong>dgrijalva/jwt-go</strong></a>  项目中获得更多的函数方法。</p>
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://semieye.github.io/post/2018/03/guid-uuid-nuid/" data-toggle="tooltip" data-placement="top" title="xUID 三种唯一ID生成">&larr; Previous Post</a>
+            </li>
+          
+          
+            <li class="next">
+              <a href="https://semieye.github.io/post/2018/03/awesome-go-projects/" data-toggle="tooltip" data-placement="top" title="Go开源项目（自己整理记录的）">Next Post &rarr;</a>
+            </li>
+          
+        </ul>
+      
+
+
+      
+
+    </div>
+  </div>
+</div>
+
+    <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="mailto:semieye@qq.com" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/semieye" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="https://semieye.github.io/">semieye</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;
+          2018
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://semieye.github.io/">Nothing lasts forever</a>
+            &nbsp;&bull;&nbsp;
+            <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="http://gohugo.io">Hugo v0.37.1</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js" integrity="sha384-dq1/gEHSxPZQ7DdrM82ID4YVol9BYyU7GbWlIwnwyPzotpoc57wDw/guX8EaYGPx" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://semieye.github.io/js/main.js"></script><script> renderMathInElement(document.body); </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script>
+<script src="https://semieye.github.io/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+  </body>
+</html>
+

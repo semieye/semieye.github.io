@@ -8,10 +8,23 @@
     <language>zh-CN</language>
     <managingEditor>semieye@qq.com (semieye)</managingEditor>
     <webMaster>semieye@qq.com (semieye)</webMaster>
-    <lastBuildDate>Mon, 26 Mar 2018 10:14:26 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 29 Mar 2018 08:40:52 +0800</lastBuildDate>
     
 	<atom:link href="https://semieye.github.io/categories/gin/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Gin 源码学习（Gin JWT Middleware）</title>
+      <link>https://semieye.github.io/post/2018/03/go-gin-jwt/</link>
+      <pubDate>Thu, 29 Mar 2018 08:40:52 +0800</pubDate>
+      <author>semieye@qq.com (semieye)</author>
+      <guid>https://semieye.github.io/post/2018/03/go-gin-jwt/</guid>
+      <description>&lt;p&gt;记录一个Gin框架的JWT中间件，项目地址：&lt;strong&gt;&lt;a href=&#34;https://github.com/appleboy/gin-jwt&#34;&gt;https://github.com/appleboy/gin-jwt&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;这个项目是利用 &lt;a href=&#34;https://github.com/dgrijalva/jwt-go&#34;&gt;&lt;strong&gt;dgrijalva/jwt-go&lt;/strong&gt;&lt;/a&gt;  项目来实现&lt;code&gt;JSON Web Tokens&lt;/code&gt; ，简称&lt;code&gt;JWT&lt;/code&gt;。什么是&lt;code&gt;JWT&lt;/code&gt;，可以参看这个文档 &lt;a href=&#34;http://self-issued.info/docs/draft-ietf-oauth-json-web-token.html&#34;&gt;JSON Web Token (JWT)&lt;/a&gt; ，也可以百度，这有个中文介绍：&lt;a href=&#34;https://www.jianshu.com/p/576dbf44b2ae&#34;&gt;什么是 JWT &amp;ndash; JSON WEB TOKEN&lt;/a&gt; 。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Gin 源码学习（Gin SSE Middleware）</title>
